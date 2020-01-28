@@ -1,0 +1,56 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Festify+</title>
+    <meta name="description" content="Which festival should I go to?">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+</head>
+<body>
+<div id="app" class="p-3" style="height:100vh; width:100vw; text-align:center; color:white; background-color:#191414; font-family:'Montserrat', sans-serif;">
+    <span style="color:#1DB954; font-weight:600; font-size: 60px; text-shadow: -0.5px 0.5px, 0.5px 0.5px, 0.5px -0.5px, -0.5px -0.5px; letter-spacing:-1px;">Festify+</span>
+</div>
+</body>
+
+<script>
+let app = new Vue({
+    el: '#app',
+    data: {},
+    computed: {},
+    methods: {},
+    mounted: async function () {
+        // let festivals = [];
+        // let pages = 0;
+        // await fetch('http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //     console.log(data);
+        //     pages = Math.ceil(data.totalcount / 100);
+        //     festivals.push.apply(festivals, data.results);
+        // });
+
+        // let base = 100;
+        // for (let i = 1; i < pages; i++){
+        //     await fetch(`http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100&offset=${base}`)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         // console.log(data);
+        //         festivals.push.apply(festivals, data.results);
+        //     });
+        //     base += 100;
+        // }
+
+        // console.log(festivals);
+    },
+    watch: {}
+});
+</script>
