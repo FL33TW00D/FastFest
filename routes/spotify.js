@@ -1,4 +1,5 @@
 var express = require('express'); // Express web server framework
+var router = express.Router();
 var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
@@ -6,7 +7,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '227a07d727b84fc38f34b255cbc1944f'; // Your client id
 var client_secret = '4bf79f41ea064a5ba58f26a557b1bb7f'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'http://localhost:3000/api/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -25,14 +26,12 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-var app = express();
 
-app.use(express.static(__dirname + '/public/backend'))
-   .use(cors())
-   .use(cookieParser());
-
-app.get('/login', function(req, res) {
-
+/**
+ * Handles login
+ * Scope variable controls which permissions will be requested from the user
+ */
+router.get('/login', function(req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -48,7 +47,10 @@ app.get('/login', function(req, res) {
     }));
 });
 
-app.get('/callback', function(req, res) {
+/**
+ * Handles return when authenticated
+ */
+router.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -110,7 +112,10 @@ app.get('/callback', function(req, res) {
   }
 });
 
-app.get('/refresh_token', function(req, res) {
+/**
+ * Handles token refresh if user logged in over token lifetime
+ */
+router.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
@@ -134,5 +139,4 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 8888');
-app.listen(8888);
+module.exports = router;

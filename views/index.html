@@ -4,7 +4,8 @@
     <title>Festify+</title>
     <meta name="description" content="Which festival should I go to?">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
+    <!-- Was making an annoying error so got rid of webmanifest -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
 
@@ -21,10 +22,12 @@
     <div class="container">
         <div id="login">
           <h1>Log in with spotify to find the best festival for you!</h1>
-                <a href="http://localhost:8888/login" class="btn btn-success" role="button">
+          <span style="border-radius: 20px !important;">
+                <a href="http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                     <i class="fab fa-spotify fa-lg"></i>
                     Login to Spotify
                 </a>
+            </span>
         </div>
         <div>
             <button id="topArtists">Find your top 100 artists</button>
@@ -74,21 +77,7 @@ let app = new Vue({
 </script>
 
 <script>
-        function getHashParams() {
-          var hashParams = {};
-          var e, r = /([^&;=]+)=?([^&;]*)/g,
-              q = window.location.hash.substring(1);
-          while ( e = r.exec(q)) {
-             hashParams[e[1]] = decodeURIComponent(e[2]);
-          }
-          return hashParams;
-        }
-        var params = this.getHashParams();
-        console.log(params);
-</script>
-
-<script>
-let artists = new Vue({
+let top_artists = new Vue({
     el: '#topArtists',
     data: {},
     computed: {},
@@ -104,6 +93,7 @@ let artists = new Vue({
         }
     },
     mounted: async function(){
+        //Authentication headers
             var headers = {  
                 method: 'GET',
                     headers: {
@@ -112,12 +102,16 @@ let artists = new Vue({
                         'Authorization': 'Bearer ' + this.getHashParams().access_token
                     },
                 }
-            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5', headers)
+            // Parameters: Type: Num Entities to return, max 50.
+                        // Offset: The index of the first entity to return
+                        //Time Range: Longterm(Years), Mediumterm (6months), shortterm (4weeks)
+            let artists = [];
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50', headers)
             .then((response) => {
                 return response.json();
             })
-            .then((myJson) => {
-                console.log(myJson);
+            .then((data) => {
+                console.log(data);
             });
     }
 });
