@@ -30,7 +30,7 @@
             </span>
         </div>
         <div>
-            <button id="topArtists">Find your top 100 artists</button>
+            <button id="topArtists">Testing</button>
         </div>
         <div id="loggedin">
           <div id="user-profile">
@@ -64,12 +64,10 @@ let app = new Vue({
             await fetch(`http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100&offset=${base}`)
             .then(response => response.json())
             .then(data => {
-                // console.log(data);
                 festivals.push.apply(festivals, data.results);
             });
             base += 100;
         }
-
         console.log(festivals);
     },
     watch: {}
@@ -90,6 +88,12 @@ let top_artists = new Vue({
              hashParams[e[1]] = decodeURIComponent(e[2]);
           }
           return hashParams;
+        },
+
+        scoringFunction(position){
+            let scalingFactor = 0.1;
+            let score = (100/Math.pow(2,(position * scalingFactor))).toFixed(2);
+            return score;
         }
     },
     mounted: async function(){
@@ -112,7 +116,21 @@ let top_artists = new Vue({
             })
             .then((data) => {
                 console.log(data);
+                //Loading artists into a simple array
+                artists.push.apply(artists, data.items);
             });
+            let scoreMap = new Map();
+            for(let i = 0; i < artists.length; i++){
+                scoreMap.set(artists[i].name, this.scoringFunction(i));
+            }
+            //Object to store festival with [Best Match ID, Best Match Score]
+            let bestMatch = {
+                id : 0,
+                score: Number.MIN_VALUE
+            };
+
+            let currentScore = 0;
+
     }
 });
 </script>
