@@ -29,8 +29,10 @@
                 </a>
             </span>
         </div>
-        <div>
-            <button id="topArtists">Testing</button>
+        <div id = "testing_buttons">
+            <button @click="populateFestivals">Populate Festivals</button>
+            <button @click="populateArtists">Populate Artists</button>
+            <button @click="findBestMatch">Find Best Match</button>
         </div>
         <div id="loggedin">
           <div id="user-profile">
@@ -45,10 +47,68 @@
 <script>
 let app = new Vue({
     el: '#app',
-    data: {},
+    data() {
+        return{
+            artists: [],
+            festivals: [],
+            scoreMap: new Map()
+        }
+    },
     computed: {},
-    methods: {},
-    mounted: async function () {
+    methods: {
+        getHashParams(){
+            var hashParams = {};
+          var e, r = /([^&;=]+)=?([^&;]*)/g,
+              q = window.location.hash.substring(1);
+          while ( e = r.exec(q)) {
+             hashParams[e[1]] = decodeURIComponent(e[2]);
+          }
+          return hashParams;
+        },
+
+        scoringFunction(position){
+            let scalingFactor = 0.1;
+            let score = (100/Math.pow(2,(position * scalingFactor)));
+            return score;
+        },
+
+        populateScoreMap(){
+            let scoreMap = new Map();
+            for(let i = 0; i < this.artists.length; i++){
+                scoreMap.set(this.artists[i].name, this.scoringFunction(i));
+            }
+            //Object to store festival with [Best Match ID, Best Match Score]
+            this.scoreMap = scoreMap;
+        },
+
+        async populateArtists(){
+            console.log('POPULATING ARTISTS');
+        //Authentication headers
+            var headers = {  
+                method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + this.getHashParams().access_token
+                    },
+                }
+            // Parameters: Type: Num Entities to return, max 50.
+                        // Offset: The index of the first entity to return
+                        //Time Range: Longterm(Years), Mediumterm (6months), shortterm (4weeks)
+            let artists = [];
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50', headers)
+            .then(response => response.json())
+            .then((data) => {
+                //Loading artists into a simple array
+                console.log(data);
+                artists.push.apply(artists, data.items);
+            });
+            this.artists = artists;
+        },
+
+
+        async populateFestivals(){
+            console.log('POPULATING FESTIVALS');
         let festivals = [];
         let pages = 0;
         await fetch('http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100')
@@ -68,69 +128,28 @@ let app = new Vue({
             });
             base += 100;
         }
-        console.log(festivals);
-    },
-    watch: {}
-});
-</script>
-
-<script>
-let top_artists = new Vue({
-    el: '#topArtists',
-    data: {},
-    computed: {},
-    methods: {
-        getHashParams(){
-            var hashParams = {};
-          var e, r = /([^&;=]+)=?([^&;]*)/g,
-              q = window.location.hash.substring(1);
-          while ( e = r.exec(q)) {
-             hashParams[e[1]] = decodeURIComponent(e[2]);
-          }
-          return hashParams;
+        this.festivals = festivals;
         },
 
-        scoringFunction(position){
-            let scalingFactor = 0.1;
-            let score = (100/Math.pow(2,(position * scalingFactor))).toFixed(2);
-            return score;
+        findBestMatch(){
+            this.populateScoreMap();
+            let bestMatch = {festival_name : "", score: Number.MIN_VALUE, matchedArtists: []};
+            for(var fest of this.festivals){
+                let currentMatch = {festival_name : fest.eventname, score: 0, matchedArtists: []};
+                for(var art of fest.artists){
+                    if(this.scoreMap.has(art.name)){
+                        currentMatch.score += this.scoreMap.get(art.name);
+                        currentMatch.matchedArtists.push(art.name);
+                    }
+                }
+                console.log('CURRENT MATCH: ' + fest.eventname + 'SCORE: ' + currentMatch.score);
+                if(currentMatch.score > bestMatch.score){
+                    bestMatch = currentMatch;
+                }
+            }
+            console.log(bestMatch);
         }
     },
-    mounted: async function(){
-        //Authentication headers
-            var headers = {  
-                method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + this.getHashParams().access_token
-                    },
-                }
-            // Parameters: Type: Num Entities to return, max 50.
-                        // Offset: The index of the first entity to return
-                        //Time Range: Longterm(Years), Mediumterm (6months), shortterm (4weeks)
-            let artists = [];
-            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50', headers)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                //Loading artists into a simple array
-                artists.push.apply(artists, data.items);
-            });
-            let scoreMap = new Map();
-            for(let i = 0; i < artists.length; i++){
-                scoreMap.set(artists[i].name, this.scoringFunction(i));
-            }
-            //Object to store festival with [Best Match ID, Best Match Score]
-            let bestMatch = {
-                id : 0,
-                score: Number.MIN_VALUE
-            };
-
-            let currentScore = 0;
-
-    }
+    watch: {}
 });
 </script>
