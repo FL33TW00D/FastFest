@@ -142,7 +142,9 @@ let app = new Vue({
                         currentMatch.matchedArtists.push(art.name);
                     }
                 }
-                console.log('CURRENT MATCH: ' + fest.eventname + 'SCORE: ' + currentMatch.score);
+                if(currentMatch.score > 0){
+                    console.log('SCORE > 0:' ,currentMatch);
+                }
                 if(currentMatch.score > bestMatch.score){
                     bestMatch = currentMatch;
                 }
