@@ -48,13 +48,15 @@
 let app = new Vue({
     el: '#app',
     data() {
-        return{
-            artists: [],
+        return {
             festivals: [],
-            scoreMap: new Map()
+            scoreMap: new Map(),
+            shortMap: new Map(),
+            mediumMap: new Map(),
+            longMap: new Map(),
+            nameMap: new Map()
         }
     },
-    computed: {},
     methods: {
         getHashParams(){
             var hashParams = {};
@@ -66,19 +68,29 @@ let app = new Vue({
           return hashParams;
         },
 
-        scoringFunction(position){
-            let scalingFactor = 0.1;
+        scoringFunction(position, mapType){
+            let scalingFactor = 0.05;
             let score = (100/Math.pow(2,(position * scalingFactor)));
             return score;
         },
 
         populateScoreMap(){
-            let scoreMap = new Map();
-            for(let i = 0; i < this.artists.length; i++){
-                scoreMap.set(this.artists[i].name, this.scoringFunction(i));
-            }
-            //Object to store festival with [Best Match ID, Best Match Score]
-            this.scoreMap = scoreMap;
+            this.mediumMap.forEach((value, key) => {
+                this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value));
+                this.nameMap.set(key.toLowerCase(), key);
+            });
+
+            this.longMap.forEach((value, key) => {
+                if (!this.scoreMap.has(key.toLowerCase())) {
+                    this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value));
+                    this.nameMap.set(key.toLowerCase(), key);
+                }
+                else if (this.scoreMap.get(key.toLowerCase()) < this.scoringFunction(value) * 4/5) {
+                    this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value) * 4/5);
+                } 
+            });
+            
+            console.log(this.scoreMap);
         },
 
         async populateArtists(){
@@ -96,14 +108,37 @@ let app = new Vue({
                         // Offset: The index of the first entity to return
                         //Time Range: Longterm(Years), Mediumterm (6months), shortterm (4weeks)
             let artists = [];
-            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50', headers)
+            let rank = 0;
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=49', headers)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+            });
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50&offset=49', headers)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+            });
+            
+            rank = 0;
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=49', headers)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+            });
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=49', headers)
             .then(response => response.json())
             .then((data) => {
                 //Loading artists into a simple array
                 console.log(data);
-                artists.push.apply(artists, data.items);
+                for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
             });
-            this.artists = artists;
+
+            console.log(this.mediumMap);
+            console.log(this.longMap);
         },
 
 
@@ -132,26 +167,29 @@ let app = new Vue({
         },
 
         findBestMatch(){
+            let matches = [];
             this.populateScoreMap();
             let bestMatch = {festival_name : "", score: Number.MIN_VALUE, matchedArtists: []};
             for(var fest of this.festivals){
-                let currentMatch = {festival_name : fest.eventname, score: 0, matchedArtists: []};
+                let currentMatch = {festival_name : fest.eventname, score: 0, matchedArtists: [], artists: []};
                 for(var art of fest.artists){
-                    if(this.scoreMap.has(art.name)){
-                        currentMatch.score += this.scoreMap.get(art.name);
+                    currentMatch.artists.push(art.name);
+                    if(this.scoreMap.has(art.name.toLowerCase())){
+                        currentMatch.score += this.scoreMap.get(art.name.toLowerCase());
                         currentMatch.matchedArtists.push(art.name);
                     }
                 }
                 if(currentMatch.score > 0){
-                    console.log('SCORE > 0:' ,currentMatch);
+                    matches.push(currentMatch);
                 }
                 if(currentMatch.score > bestMatch.score){
                     bestMatch = currentMatch;
                 }
             }
+
+            console.log(matches.sort((a, b) => (a.score < b.score) ? 1 : -1));
             console.log(bestMatch);
         }
-    },
-    watch: {}
+    }
 });
 </script>
