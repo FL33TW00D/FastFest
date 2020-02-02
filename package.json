@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "dev": "nodemon spotify"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
@@ -14,9 +14,15 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "^1.6.3",
+    "install": "^0.13.0",
     "morgan": "~1.9.1",
+<<<<<<< HEAD
     "node-cache": "^5.1.0",
     "node-fetch": "^2.6.0",
+=======
+    "mustache": "^4.0.0",
+    "mustache-express": "^1.3.0",
+>>>>>>> 97993fe3304c6a6c97aee9397a3faee7105e513b
     "prettier": "^1.19.1",
     "pug": "^2.0.4",
     "querystring": "^0.2.0",
