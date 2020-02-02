@@ -10,7 +10,7 @@ const cache = new NodeCache({ stdTTL: 900, checkperiod: 0, deleteOnExpire: true 
 
 var client_id = '227a07d727b84fc38f34b255cbc1944f'; // Your client id
 var client_secret = '4bf79f41ea064a5ba58f26a557b1bb7f'; // Your secret
-var redirect_uri = 'https://fastfest.herkouapp.com/api/callback'; // Your redirect uri
+var redirect_uri = 'https://fastfest.herokuapp.com/api/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
