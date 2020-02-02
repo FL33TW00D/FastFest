@@ -32,7 +32,7 @@
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a href="http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a href= "http://fastfest.herokuapp.com/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -68,7 +68,7 @@
             </div>
             <div v-if="page === total_pages" id="login" class="col-12 my-auto">
                 <div class="mx-auto text-center h-100">
-                    <!-- {{calculating ? 'Calculating' : matches[0].name}} -->
+                    {{calculating ? 'Calculating' : ''}}
                     <div v-if="matches.length > 0" class="row h-100">
                         <div class="col-12">
                             <div class="mx-auto" style="max-width:320px;">
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-12" style="font-size: 40px;">{{matches[0].name}}</div>
                     </div>
-                    <b-table borderless :items="matches" :columns="['Name']"></b-table>
+                    <!-- <b-table borderless small :items="matches"></b-table> -->
                 </div>
             </div>
         </div>

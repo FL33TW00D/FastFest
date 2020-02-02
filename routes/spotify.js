@@ -10,8 +10,8 @@ const cache = new NodeCache({ stdTTL: 900, checkperiod: 0, deleteOnExpire: true 
 
 var client_id = '227a07d727b84fc38f34b255cbc1944f'; // Your client id
 var client_secret = '4bf79f41ea064a5ba58f26a557b1bb7f'; // Your secret
-var redirect_uri = 'http://localhost:3000/api/callback'; // Your redirect uri
-
+var redirect_uri = process.env.BASE_URI + '/api/callback'; // Your redirect uri
+console.log(redirect_uri);
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -101,7 +101,7 @@ router.get('/callback', function(req, res) {
         });
         
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:3000/#' +
+        res.redirect(process.env.BASE_URI + '/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
