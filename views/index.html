@@ -17,9 +17,9 @@
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 </head>
 <body>
-<div id="app" class="p-3" style="height:100vh; width:100vw; text-align:center; color:white; background-color:#191414; font-family:'Montserrat', sans-serif;">
-    <span style="color:#1DB954; font-weight:600; font-size: 60px; text-shadow: -0.5px 0.5px, 0.5px 0.5px, 0.5px -0.5px, -0.5px -0.5px; letter-spacing:-1px;">Festify+</span>
-    <div class="container">
+<div id="app" class="p-2" style="height:100vh; width:100vw; color:white; background-color:#191414; font-family:'Montserrat', sans-serif;">
+    <span class="px-3" style="color:#1DB954; font-weight:600; font-size: 60px;">Fastfest</span>
+    <!-- <div class="container">
         <div id="login">
           <h1>Log in with spotify to find the best festival for you!</h1>
           <span style="border-radius: 20px !important;">
@@ -40,7 +40,30 @@
           <div id="oauth">
           </div>
         </div>
-      </div>
+    </div> -->
+    <div class="row mx-5">
+        <div class="col-8">
+            <h1>Log in with spotify to find the best festival for you!</h1>
+            <div id = "testing_buttons">
+                <button @click="populateFestivals">Populate Festivals</button>
+                <button @click="populateArtists">Populate Artists</button>
+                <button @click="findBestMatch">Find Best Match</button>
+            </div>
+        </div>
+        <div class="col-4">
+            <div id="login">
+                <div><span style="height: 300px; width: 300px; background-color: #bbb; border-radius: 50%; display: inline-block;"></span></div>
+                <div>
+                    <span style="border-radius: 20px !important;">
+                        <a href="http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <i class="fab fa-spotify fa-lg"></i>
+                            Login to Spotify
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 
@@ -49,6 +72,7 @@ let app = new Vue({
     el: '#app',
     data() {
         return {
+            authenticated: false,
             festivals: [],
             scoreMap: new Map(),
             shortMap: new Map(),
@@ -110,32 +134,32 @@ let app = new Vue({
             let artists = [];
             let rank = 0;
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=49', headers)
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
-            });
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+                });
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50&offset=49', headers)
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
-            });
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+                });
             
             rank = 0;
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=49', headers)
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
-            });
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+                });
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=49', headers)
-            .then(response => response.json())
-            .then((data) => {
-                //Loading artists into a simple array
-                console.log(data);
-                for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
-            });
+                .then(response => response.json())
+                .then((data) => {
+                    //Loading artists into a simple array
+                    console.log(data);
+                    for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+                });
 
             console.log(this.mediumMap);
             console.log(this.longMap);
@@ -144,34 +168,34 @@ let app = new Vue({
 
         async populateFestivals(){
             console.log('POPULATING FESTIVALS');
-        let festivals = [];
-        let pages = 0;
-        await fetch('http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100')
-            .then(response => response.json())
-            .then(data => {
-            console.log(data);
-            pages = Math.ceil(data.totalcount / 100);
-            festivals.push.apply(festivals, data.results);
-        });
+            let festivals = [];
+            let pages = 0;
+            await fetch('http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    pages = Math.ceil(data.totalcount / 100);
+                    festivals.push.apply(festivals, data.results);
+                });
 
-        let base = 100;
-        for (let i = 1; i < pages; i++){
-            await fetch(`http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100&offset=${base}`)
-            .then(response => response.json())
-            .then(data => {
-                festivals.push.apply(festivals, data.results);
-            });
-            base += 100;
-        }
-        this.festivals = festivals;
+            let base = 100;
+            for (let i = 1; i < pages; i++){
+                await fetch(`http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100&offset=${base}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        festivals.push.apply(festivals, data.results);
+                    });
+                base += 100;
+            }
+            this.festivals = festivals;
+            console.log("Done");
         },
-
         findBestMatch(){
             let matches = [];
             this.populateScoreMap();
-            let bestMatch = {festival_name : "", score: Number.MIN_VALUE, matchedArtists: []};
+            let bestMatch = {name : "", score: Number.MIN_VALUE, matchedArtists: []};
             for(var fest of this.festivals){
-                let currentMatch = {festival_name : fest.eventname, score: 0, matchedArtists: [], artists: []};
+                let currentMatch = {name : fest.eventname, score: 0, matchedArtists: [], artists: []};
                 for(var art of fest.artists){
                     currentMatch.artists.push(art.name);
                     if(this.scoreMap.has(art.name.toLowerCase())){
@@ -179,11 +203,11 @@ let app = new Vue({
                         currentMatch.matchedArtists.push(art.name);
                     }
                 }
-                if(currentMatch.score > 0){
+                if(currentMatch.score > 0 && typeof matches.find((element) => {return element.name === fest.eventname;}) === "undefined"){
                     matches.push(currentMatch);
-                }
-                if(currentMatch.score > bestMatch.score){
-                    bestMatch = currentMatch;
+                    if(currentMatch.score > bestMatch.score){
+                        bestMatch = currentMatch;
+                    }
                 }
             }
 
