@@ -140,20 +140,12 @@ let app = new Vue({
                     for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
                 });
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50&offset=49', headers)
-<<<<<<< HEAD
                 .then(response => response.json())
                 .then((data) => {
                     console.log(data);
                     for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
                 });
             
-=======
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
-            });
->>>>>>> 3fe730d7cb21b59a77228ce007e5bfd933fa1af2
             rank = 0;
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=49', headers)
                 .then(response => response.json())
