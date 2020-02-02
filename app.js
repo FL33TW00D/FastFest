@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 const mustacheExpress = require('mustache-express');
+require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -42,6 +43,6 @@ app.use(function(err, req, res, next) {
   res.status(500).render('error', {title: '500'});
 });
 
-console.log('server running at http://localhost:3000')
+console.log('server running at ' + process.env.BASE_URI);
 
 module.exports = app;
