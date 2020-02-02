@@ -16,6 +16,7 @@
     <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script> 
 </head>
 <body style="background-color:#191414; overflow-x: hidden;">
 <div id="app" v-cloak class="p-2" style="height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
@@ -62,6 +63,9 @@
                     </div>
                 </div>
             </div>
+            <div v-if="page === 1" class="col-12 my-auto">
+                <world-map></world-map>
+            </div>
             <div v-if="page === total_pages" id="login" class="col-12 my-auto">
                 <div class="mx-auto text-center h-100">
                     <!-- {{calculating ? 'Calculating' : matches[0].name}} -->
@@ -105,6 +109,9 @@
 <script>
 let app = new Vue({
     el: '#app',
+    components: {
+        'world-map': httpVueLoader('../public/vue/world-map.vue')
+    },
     data() {
         return {
             total_pages: 3,
