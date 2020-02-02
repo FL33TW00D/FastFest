@@ -121,7 +121,6 @@ let app = new Vue({
                 console.log(data);
                 for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
             });
-            
             rank = 0;
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=49', headers)
             .then(response => response.json())

@@ -4,16 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var querystring = require('querystring');
+const mustacheExpress = require('mustache-express');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var spotifyRouter = require('./routes/spotify')
+var spotifyRouter = require('./routes/spotify');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
+app.engine('html', mustacheExpress());
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -38,7 +39,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(500).send('Something broke!');
+  res.status(500).render('error', {title: '500'});
 });
 
 console.log('server running at http://localhost:3000')
