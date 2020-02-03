@@ -33,7 +33,7 @@
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a href= "https://fastfest.herokuapp.com/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a href= "http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -50,7 +50,7 @@
                 <div class="mx-auto" style="max-width: 500px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
-                              :style="[authenticated ? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png)'}]">
+                              :style="[(authenticated && profile.images)? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png)'}]">
                         </span>
                     </div>
                     <div style="text-align: center;">
@@ -64,12 +64,12 @@
                     </div>
                 </div>
             </div>
-            <div v-if="page === 1" id="map-title" class="col-12 px-0 text-center" style="font-size: 40px; font-weight: 500;">{{ mapTitle }}</div>
-            <div v-if="page === 1" class="col-12 px-0 my-auto">
-                <div id="world-map" class="mx-auto">
-                    <svg viewBox="0 0 845.2 458" class="d-block mx-auto" style="max-height:calc(100vh - 200px);">
+            <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center" style="font-size: 36px; font-weight: 500;">How far would you travel?</div>
+            <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
+                <div id="world-map" class="mx-auto my-auto">
+                    <svg viewBox="0 0 845.2 458" class="d-block mx-auto my-auto" style="max-height:calc(100vh - 200px);">
                         <!-- ASIA -->
-                        <g @mouseover="modifyMapTitle('ASIA')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <g @mouseover="mapTitle = 'Asia'" @mouseleave="mapTitle = ''" @click="clickMap('AS')" :class="[regions.includes('AS') ? 'toggled' : '']">    
                             <circle class="st0" cx="724.4" cy="164.6" r="1.9"/>
                             <circle class="st0" cx="710.8" cy="164.6" r="1.9"/>
                             <circle class="st0" cx="724.4" cy="171.3" r="1.9"/>
@@ -444,8 +444,8 @@
                     
                         </g>
 
-                        <!-- RUSSIA -->
-                        <g @mouseover="modifyMapTitle('EUROPE')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <!-- EU -->
+                        <g @mouseover="mapTitle = 'Europe'" @mouseleave="mapTitle = ''" @click="clickMap('EU')" :class="[regions.includes('EU') ? 'toggled' : '']">    
                             <circle class="st0" cx="826.1" cy="110.3" r="1.9"/>
                             <circle class="st0" cx="819.3" cy="110.3" r="1.9"/>
                             <circle class="st0" cx="819.3" cy="117.1" r="1.9"/>
@@ -1214,7 +1214,7 @@
 
 
                         <!-- GB -->
-                        <g @mouseover="modifyMapTitle('GREAT BRITAIN')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <g @mouseover="mapTitle = 'UK'" @mouseleave="mapTitle = ''" @click="clickMap('GB')" :class="[regions.includes('GB') ? 'toggled' : '']">    
                             <circle class="st0" cx="398.8" cy="151" r="1.9"/>
                             <circle class="st0" cx="392.1" cy="130.7" r="1.9"/>
                             <circle class="st0" cx="398.8" cy="130.7" r="1.9"/>
@@ -1234,7 +1234,7 @@
 
 
                         <!-- SA -->
-                        <g @mouseover="modifyMapTitle('SOUTH AMERICA')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <g @mouseover="mapTitle = 'South America'" @mouseleave="mapTitle = ''" @click="clickMap('SA')" :class="[regions.includes('SA') ? 'toggled' : '']">    
                             <circle class="st0" cx="317.5" cy="300.2" r="1.9"/>
                             <circle class="st0" cx="317.5" cy="307" r="1.9"/>
                             <circle class="st0" cx="310.7" cy="300.2" r="1.9"/>
@@ -1448,7 +1448,7 @@
                         </g>
 
                         <!-- NA -->
-                        <g @mouseover="modifyMapTitle('NORTH AMERICA')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <g @mouseover="mapTitle = 'North America'" @mouseleave="mapTitle = ''" @click="clickMap('NA')" :class="[regions.includes('NA') ? 'toggled' : '']">    
                             <circle class="st0" cx="351.4" cy="110.3" r="1.9"/>
                             <circle class="st0" cx="351.4" cy="117.1" r="1.9"/>
                             <circle class="st0" cx="344.6" cy="110.3" r="1.9"/>
@@ -2205,7 +2205,7 @@
                         </g>
                     
                         <!-- AF -->
-                        <g @mouseover="modifyMapTitle('AFRICA')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <g @mouseover="mapTitle = 'Africa'" @mouseleave="mapTitle = ''" @click="clickMap('AF')" :class="[regions.includes('AF') ? 'toggled' : '']">    
                             <circle class="st0" cx="527.7" cy="239.2" r="1.9"/>
                             <circle class="st0" cx="520.9" cy="239.2" r="1.9"/>
                             <circle class="st0" cx="520.9" cy="246" r="1.9"/>
@@ -2564,7 +2564,7 @@
                         </g>
                     
                         <!-- OC -->
-                        <g @mouseover="modifyMapTitle('OCEANIA')" @mouseleave="modifyMapTitle('Where do you want to go?')">    
+                        <g @mouseover="mapTitle = 'Oceania'" @mouseleave="mapTitle = ''" @click="clickMap('OC')" :class="[regions.includes('OC') ? 'toggled' : '']">    
                             <circle class="st0" cx="805.8" cy="381.6" r="1.9"/>
                             <circle class="st0" cx="799" cy="374.8" r="1.9"/>
                             <circle class="st0" cx="799" cy="381.6" r="1.9"/>
@@ -2740,6 +2740,7 @@
                             <circle class="st0" cx="615.9" cy="279.9" r="1.9"/>
                         </g>
                     </svg>
+                    <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%); font-size: 24px;">{{ mapTitle }}</div>
                 </div>
             </div>
             <div v-if="page === total_pages" class="col-12 my-auto">
@@ -2795,9 +2796,10 @@ let app = new Vue({
             page: 0,
             moved_back: false,
             calculating: false,
-            mapTitle: 'Where do you want to go?',
+            mapTitle: '',
 
             festivals: [],
+            regions: [],
             scoreMap: new Map(),
             shortMap: new Map(),
             mediumMap: new Map(),
@@ -2971,10 +2973,10 @@ let app = new Vue({
             sessionStorage.removeItem('spotify-refresh-token');
             window.location = window.location.origin;
         },
-        modifyMapTitle(region_name){
-            console.log(region_name);
-            // document.getElementById('map-title').textContent = region_name;
-            this.mapTitle = region_name;
+        clickMap(region){
+            console.log(region);
+            if (!this.regions.includes(region)) this.regions.push(region);
+            else this.regions.splice(this.regions.indexOf(region), 1);
         },
     },
     created() {
@@ -3010,12 +3012,16 @@ let app = new Vue({
 circle {
   fill: #ffffff;
   stroke-width: 6.5;
-  stroke: green;
+  stroke: #1db954;
   stroke-opacity: 0;
 }
 
 g:hover circle{
-    r:1.9;
+    /* r:1.9; */
+    fill: #1db954;
+}
+
+g.toggled circle {
     fill: #1db954;
 }
 
