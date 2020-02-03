@@ -33,7 +33,7 @@
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a href= "http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a href= "https://fastfest.herokuapp.com/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="page === 1" id="map-title" class="col-12 px-0 text-center" style="font-size: 40px; font-weight: 500;">Where do you want to go?</div>
+            <div v-if="page === 1" id="map-title" class="col-12 px-0 text-center" style="font-size: 40px; font-weight: 500;">{{ mapTitle }}</div>
             <div v-if="page === 1" class="col-12 px-0 my-auto">
                 <div id="world-map" class="mx-auto">
                     <svg viewBox="0 0 845.2 458" class="d-block mx-auto" style="max-height:calc(100vh - 200px);">
@@ -2795,6 +2795,7 @@ let app = new Vue({
             page: 0,
             moved_back: false,
             calculating: false,
+            mapTitle: 'Where do you want to go?',
 
             festivals: [],
             scoreMap: new Map(),
@@ -2982,7 +2983,8 @@ let app = new Vue({
         },
         modifyMapTitle(region_name){
             console.log(region_name);
-            document.getElementById('map-title').textContent = region_name;
+            // document.getElementById('map-title').textContent = region_name;
+            this.mapTitle = region_name;
         },
         async readCountryData(){
             await fetch('/api/countries')
