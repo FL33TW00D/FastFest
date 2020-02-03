@@ -2804,7 +2804,17 @@ let app = new Vue({
             nameMap: new Map(),
             
             matches: [],
-            background_position: 0
+            background_position: 0,
+
+            // Country Data
+            countryMap: new Map(),
+            AF_Set: new Set(),
+            AS_Set: new Set(),
+            EU_Set: new Set(),
+            GB_Set: new Set(),
+            NA_Set: new Set(),
+            OC_Set: new Set(),
+            SA_Set: new Set()
         }
     },
     methods: {
@@ -2974,6 +2984,17 @@ let app = new Vue({
             console.log(region_name);
             document.getElementById('map-title').textContent = region_name;
         },
+        async readCountryData(){
+            await fetch('/api/countries')
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+            });
+
+
+
+
+        }
     },
     created() {
         if (window.location.hash) {
@@ -2984,7 +3005,8 @@ let app = new Vue({
         }
         else {
             if (sessionStorage.getItem('spotify-access-token')) {
-                this.access_token = sessionStorage.getItem('spotify-access-token') 
+                this.access_token = sessionStorage.getItem('spotify-access-token');
+                this.readCountryData();
                 this.userAuthenticated();
             }
             else {
