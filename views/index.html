@@ -1,7 +1,7 @@
 <!doctype html>
 <head>
     <meta charset="utf-8">
-    <title>Festify+</title>
+    <title>fastfest</title>
     <meta name="description" content="Which festival should I go to?">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Was making an annoying error so got rid of webmanifest -->
@@ -12,15 +12,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
-    <link type="text/css" rel="stylesheet" href="/public/animate.css"/>
     <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> 
 </head>
 
-<body style="background-color:#191414; overflow-x: hidden;">
-<div id="app" v-cloak class="p-2" style="height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
+<body style="overflow-x: hidden;">
+<div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
+     style="background-image: url('https://trello-attachments.s3.amazonaws.com/5e35b89a44c05959a390e6c8/5e374823323b4d8320ae2d55/530317bc648a331247d50b7c06da45b9/veccycamp.png'); background-size: auto 100%; height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
     <span class="px-3" style="color:#1DB954; font-weight:600; font-size: 60px;">fastfest</span>
     <div class="container-fluid m-0 p-0" style="height:calc(100% - 100px);">
         <div v-if="authenticated === false" class="row h-100 mx-4">
@@ -2742,7 +2742,7 @@
                     </svg>
                 </div>
             </div>
-            <div v-if="page === total_pages" id="login" class="col-12 my-auto">
+            <div v-if="page === total_pages" class="col-12 my-auto">
                 <div class="mx-auto text-center h-100">
                     {{calculating ? 'Calculating' : ''}}
                     <div v-if="matches.length > 0" class="row h-100">
@@ -2769,7 +2769,7 @@
                     </a>
                 </span>
             </div>
-            <div v-if="page > 0 && page < total_pages" style="text-align: center; position: absolute; bottom: 0; left: 0;">
+            <div v-if="page > 0" style="text-align: center; position: absolute; bottom: 0; left: 0;">
                 <span style="border-radius: 20px !important;">
                     <a @click="prev_page" class="btn btn-secondary" role="button" style="border-radius: 18px;margin: 10px;">
                         <i class="fas fa-arrow-left"></i>
@@ -2785,12 +2785,9 @@
 <script>
 let app = new Vue({
     el: '#app',
-    components: {
-        'world-map': httpVueLoader('../public/vue/world-map.vue')
-    },
     data() {
         return {
-            total_pages: 3,
+            total_pages: 2,
 
             authenticated: null,
             access_token: '',
@@ -2807,14 +2804,17 @@ let app = new Vue({
             nameMap: new Map(),
             
             matches: [],
+            background_position: 0
         }
     },
     methods: {
         next_page() { 
+            this.background_position -= 100;
             this.page++; 
             this.moved_back = false;
         },
         prev_page() {
+            this.background_position += 100;
             this.page--; 
             this.moved_back = true;
         },
@@ -3006,14 +3006,14 @@ let app = new Vue({
 
 <style>
 circle {
-  fill: #FFFFFF;
+  fill: #ffffff;
   stroke-width: 6.5;
   stroke: green;
   stroke-opacity: 0;
 }
 
 g:hover circle{
-    r:2.5;
+    r:1.9;
     fill: #1db954;
 }
 
@@ -3041,5 +3041,9 @@ g:hover circle{
 }
 .slideLeft-enter {
     translate: -120%;
+}
+
+#app {
+    transition: background-position .4s ease-out;
 }
 </style>
