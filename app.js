@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-const mustacheExpress = require('mustache-express');
+var mustacheExpress = require('mustache-express');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -42,6 +42,8 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(500).render('error', {title: '500'});
 });
+
+
 
 console.log('server running at ' + process.env.BASE_URI);
 
