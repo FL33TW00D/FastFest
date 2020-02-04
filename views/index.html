@@ -12,7 +12,6 @@
     <!-- Place favicon.ico in the root directory -->
 
     <link rel="stylesheet" href="style.css"/>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
@@ -27,6 +26,13 @@
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
      style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
     <span id="brand" class="px-3">fastfest</span>
+    <div class="mx-auto" style="max-width:300px;">
+        <div style="max-width:300px;">
+            <span style="position:fixed; left:1vw; top:1vh; width:100%; background-size:400px; height:auto; min-height:100%; display:inline-block;background-repeat: no-repeat;" 
+                :style="[{'backgroundImage': 'url(fastfest-logo.png)'}]">
+            </span>
+        </div>
+    </div>
     <div class="container-fluid m-0 p-0" style="height:calc(100% - 100px);">
         <div v-if="authenticated === false" class="row h-100 mx-4">
             <div id="login" class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
@@ -55,14 +61,14 @@
                 <div class="mx-auto" style="max-width: 300px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
-                              :style="[(authenticated && profile.images)? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png)'}]">
+                              :style="[(authenticated && profile.images)? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(profile-placeholder.png)'}]">
                         </span>
                     </div>
                     <div style="text-align: center;">
                         <span>{{ profile.display_name }}<br></span>
                         <span style="border-radius: 20px !important;">
-                            <a @click="logout" class="btn btn-secondary" role="button" style="border-radius: 18px;margin: 10px;">
-                                <i class="fab fa-spotify fa-lg"></i>
+                            <a @click="logout" class="btn btn-danger" role="button" style="border-radius: 18px;margin: 10px;">
+                                <i class="fab fa-spotify fa-lg" style="vertical-align: -.14em;"></i>
                                 Logout
                             </a>
                         </span>
@@ -2748,7 +2754,7 @@
             </div>
             <div v-if="page === total_pages" class="col-12 my-auto">
                 <div class="mx-auto text-center h-100">
-                    {{calculating ? 'Calculating' : ''}}
+                    <img v-if="calculating" src="/blocks.gif">
                     <div v-if="matches.length > 0" class="row h-100">
                         <div class="col-12">
                             <div class="mx-auto" style="max-width:320px;">
@@ -2825,7 +2831,7 @@ let app = new Vue({
     },
     methods: {
         next_page() { 
-            this.background_position -= 500;
+            this.background_position -= 1500;
             this.page++; 
             // this.moved_back = false;
         },
@@ -2834,7 +2840,7 @@ let app = new Vue({
                 this.fes
                 this.matches = [];
             }
-            this.background_position += 500;
+            this.background_position += 1500;
             this.page--; 
             // this.moved_back = true;
         },
