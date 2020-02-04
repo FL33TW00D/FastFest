@@ -1,13 +1,17 @@
 <!doctype html>
+<html>
 <head>
     <meta charset="utf-8">
     <title>fastfest</title>
     <meta name="description" content="Which festival should I go to?">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Was making an annoying error so got rid of webmanifest -->
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="style.css"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
@@ -16,24 +20,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> 
+    <script type="text/javascript" src="env.js"></script>
 </head>
 
-<body style="overflow-x: hidden;">
+<body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-     style="background-image: url('/veccycamp.png'); background-size: auto 100%; height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
-    <span class="px-3" style="color:#1DB954; font-weight:600; font-size: 60px;">fastfest</span>
+     style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
+    <span id="brand" class="px-3">fastfest</span>
     <div class="container-fluid m-0 p-0" style="height:calc(100% - 100px);">
         <div v-if="authenticated === false" class="row h-100 mx-4">
             <div id="login" class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
-                <div class="mx-auto" style="max-width: 400px;">
+                <div class="mx-auto" style="max-width: 250px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
-                              :style="[authenticated ? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(profile-placeholder.png)'}]">
+                              :style="[{'backgroundImage': 'url(profile-placeholder.png)'}]">
                         </span>
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a href= "http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a :href= "host +'/api/login'" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -47,7 +52,7 @@
         </div>
         <div v-else class="row h-100 mx-4">
             <div v-if="page === 0" id="login" class="col-12 my-auto">
-                <div class="mx-auto" style="max-width: 500px;">
+                <div class="mx-auto" style="max-width: 300px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
                               :style="[(authenticated && profile.images)? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png)'}]">
@@ -64,10 +69,10 @@
                     </div>
                 </div>
             </div>
-            <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center" style="font-size: 36px; font-weight: 500;">How far would you travel?</div>
+            <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center"><h1>How far would you travel?</h1></div>
             <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
                 <div id="world-map" class="mx-auto my-auto">
-                    <svg viewBox="0 0 845.2 458" class="d-block mx-auto my-auto" style="max-height:calc(100vh - 200px);">
+                    <svg viewBox="0 0 845.2 458" class="d-block mx-auto my-auto" style="max-height:calc(100vh - 200px);">#
                         <!-- ASIA -->
                         <g @mouseover="mapTitle = 'Asia'" @mouseleave="mapTitle = ''" @click="clickMap('AS')" :class="[regions.includes('AS') ? 'toggled' : '']">    
                             <circle class="st0" cx="724.4" cy="164.6" r="1.9"/>
@@ -1211,27 +1216,6 @@
                             <circle class="st0" cx="378.5" cy="191.7" r="1.9"/>
                             <circle class="st0" cx="378.5" cy="198.5" r="1.9"/>
                         </g>
-
-
-                        <!-- GB -->
-                        <g @mouseover="mapTitle = 'UK'" @mouseleave="mapTitle = ''" @click="clickMap('GB')" :class="[regions.includes('GB') ? 'toggled' : '']">    
-                            <circle class="st0" cx="398.8" cy="151" r="1.9"/>
-                            <circle class="st0" cx="392.1" cy="130.7" r="1.9"/>
-                            <circle class="st0" cx="398.8" cy="130.7" r="1.9"/>
-                            <circle class="st0" cx="392.1" cy="137.4" r="1.9"/>
-                            <circle class="st0" cx="392.1" cy="144.2" r="1.9"/>
-                            <circle class="st0" cx="392.1" cy="151" r="1.9"/>
-                            <circle class="st0" cx="392.1" cy="157.8" r="1.9"/>
-                            <circle class="st0" cx="385.3" cy="137.4" r="1.9"/>
-                            <circle class="st0" cx="385.3" cy="144.2" r="1.9"/>
-                            <circle class="st0" cx="385.3" cy="151" r="1.9"/>
-                            <circle class="st0" cx="385.3" cy="157.8" r="1.9"/>
-                            <circle class="st0" cx="378.5" cy="123.9" r="1.9"/>
-                            <circle class="st0" cx="378.5" cy="144.2" r="1.9"/>
-                            <circle class="st0" cx="378.5" cy="151" r="1.9"/>
-                            <circle class="st0" cx="371.7" cy="151" r="1.9"/>
-                        </g>
-
 
                         <!-- SA -->
                         <g @mouseover="mapTitle = 'South America'" @mouseleave="mapTitle = ''" @click="clickMap('SA')" :class="[regions.includes('SA') ? 'toggled' : '']">    
@@ -2739,8 +2723,27 @@
                             <circle class="st0" cx="622.7" cy="286.6" r="1.9"/>
                             <circle class="st0" cx="615.9" cy="279.9" r="1.9"/>
                         </g>
+
+                        <!-- GB -->
+                        <g class="gb" @mouseover="mapTitle = 'UK'" @mouseleave="mapTitle = ''" @click="clickMap('GB')" :class="[regions.includes('GB') ? 'toggled' : '']">    
+                            <circle class="st0" cx="398.8" cy="151" r="1.9"/>
+                            <circle class="st0" cx="392.1" cy="130.7" r="1.9"/>
+                            <circle class="st0" cx="398.8" cy="130.7" r="1.9"/>
+                            <circle class="st0" cx="392.1" cy="137.4" r="1.9"/>
+                            <circle class="st0" cx="392.1" cy="144.2" r="1.9"/>
+                            <circle class="st0" cx="392.1" cy="151" r="1.9"/>
+                            <circle class="st0" cx="392.1" cy="157.8" r="1.9"/>
+                            <circle class="st0" cx="385.3" cy="137.4" r="1.9"/>
+                            <circle class="st0" cx="385.3" cy="144.2" r="1.9"/>
+                            <circle class="st0" cx="385.3" cy="151" r="1.9"/>
+                            <circle class="st0" cx="385.3" cy="157.8" r="1.9"/>
+                            <circle class="st0" cx="378.5" cy="123.9" r="1.9"/>
+                            <circle class="st0" cx="378.5" cy="144.2" r="1.9"/>
+                            <circle class="st0" cx="378.5" cy="151" r="1.9"/>
+                            <circle class="st0" cx="371.7" cy="151" r="1.9"/>
+                        </g>
                     </svg>
-                    <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%); font-size: 24px;">{{ mapTitle }}</div>
+                    <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%);"><h4>{{ mapTitle }}</h4></div>
                 </div>
             </div>
             <div v-if="page === total_pages" class="col-12 my-auto">
@@ -2824,12 +2827,16 @@ let app = new Vue({
         next_page() { 
             this.background_position -= 500;
             this.page++; 
-            this.moved_back = false;
+            // this.moved_back = false;
         },
         prev_page() {
+            if (this.page === this.total_pages) {
+                this.fes
+                this.matches = [];
+            }
             this.background_position += 500;
             this.page--; 
-            this.moved_back = true;
+            // this.moved_back = true;
         },
         transition(current) {
             // if (!this.moved_back) {
@@ -2903,9 +2910,22 @@ let app = new Vue({
                     console.log(data);
                     for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
                 });
+            console.log('Done');
+            
+            
+            console.log('POPULATING FESTIVALS');
+            await fetch('/api/skiddle')
+                .then(response => response.json())
+                .then(data => {
+                    this.festivals = data;
+                });
+            console.log("Done");
+            console.log(this.festivals);
 
             console.log(this.mediumMap);
             console.log(this.longMap);
+
+            this.populateScoreMap();
         },
         populateScoreMap(){
             this.mediumMap.forEach((value, key) => {
@@ -2932,27 +2952,18 @@ let app = new Vue({
         },
         async calculate() {
             this.calculating = true;
-            console.log('POPULATING FESTIVALS');
 
-            await fetch('/api/skiddle')
-                .then(response => response.json())
-                .then(data => {
-                    if (this.countrySet.size > 0) {
-                        for (let festival of data){
-                            if (this.countrySet.has(festival.venue.country)) this.festivals.push(festival);
-                        }
-                    }
-                    else this.festivals = data;
-                    
-                });
-            
-            console.log(this.festivals);
-            console.log("Done");
+            let filtered_festivals = [];
+            if (this.countrySet.size > 0) {
+                for (let festival of this.festivals){
+                    if (this.countrySet.has(festival.venue.country)) filtered_festivals.push(festival);
+                }
+            }
+            else filtered_festivals = this.festivals;
 
             let matches = [];
-            this.populateScoreMap();
             let bestMatch = {name : "", score: Number.MIN_VALUE, matchedArtists: []};
-            for(var fest of this.festivals){
+            for(var fest of filtered_festivals){
                 let currentMatch = {name : fest.eventname, score: 0, matchedArtists: [], artists: [], logo: fest.largeimageurl};
                 for(var art of fest.artists){
                     currentMatch.artists.push(art.name);
@@ -2963,16 +2974,16 @@ let app = new Vue({
                 }
                 if(currentMatch.score > 0 && typeof matches.find((element) => {return element.name === fest.eventname;}) === "undefined"){
                     matches.push(currentMatch);
-                    if(currentMatch.score > bestMatch.score){
-                        bestMatch = currentMatch;
-                    }
                 }
             }
 
-            console.log(matches.sort((a, b) => (a.score < b.score) ? 1 : -1));
-            console.log(bestMatch);
-            this.matches = matches;
+            matches.sort((a, b) => (a.score < b.score) ? 1 : -1)
+            if (matches) {
+                console.log(matches);
+                console.log(matches[0]);
+            }
 
+            this.matches = matches;
             this.calculating = false;
         },
         getHashParams(){
@@ -2990,7 +3001,6 @@ let app = new Vue({
             window.location = window.location.origin;
         },
         clickMap(region){
-            console.log(region);
             if (!this.regions.includes(region)) {
                 this.regions.push(region);
                 this[region].forEach((country) => {
@@ -3002,6 +3012,7 @@ let app = new Vue({
                 this[region].forEach((country) => {
                     this.countrySet.delete(country);
                 });
+                if (window.matchMedia("(hover: none)").matches) this.mapTitle = '';
             }
         },
         async readCountryData(){
@@ -3013,8 +3024,6 @@ let app = new Vue({
                         this[country.Continent].add(country.Country);
                     }
             });
-            
-            console.log(this.EU);
         }
     },
     created() {
@@ -3036,6 +3045,8 @@ let app = new Vue({
             
             console.log(this.access_token);
         }
+
+        this.host = env.HOSTNAME;
     },
     watch: {
         page(newValue) {
@@ -3046,55 +3057,4 @@ let app = new Vue({
     }
 });
 </script>
-
-<style>
-circle {
-  fill: #ffffff;
-  stroke-width: 6.5;
-  stroke: #1db954;
-  stroke-opacity: 0;
-}
-
-g:hover circle{
-    /* r:1.9; */
-    fill: #1db954;
-}
-
-g.toggled circle {
-    fill: #1db954;
-}
-
-g.toggled:hover circle {
-    fill: #158a3e;
-}
-
-.slideRight-leave-active {
-    transition: translate .6s ease-in-out;
-}
-.slideRight-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    translate: 120%;
-}
-.slideRight-enter-active {
-    transition: translate .6s ease-in-out;
-}
-.slideRight-enter {
-    translate: 120%;
-}
-
-.slideLeft-leave-active {
-    transition: translate .6s ease-in-out;
-}
-.slideLeft-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    translate: -120%;
-}
-.slideLeft-enter-active {
-    transition: translate .6s ease-in-out;
-}
-.slideLeft-enter {
-    translate: -120%;
-}
-
-#app {
-    transition: background-position .7s ease-out;
-}
-</style>
+</html>
