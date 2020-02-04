@@ -2752,6 +2752,7 @@
             </div>
             <div v-if="page === total_pages" class="col-12 my-auto">
                 <div class="mx-auto text-center h-100">
+                    <img v-if="calculating" src="/blocks.gif">
                     <div v-if="matches.length > 0" class="row h-100">
                         <div class="col-12">
                             <div class="mx-auto" style="max-width:320px;">
@@ -3103,34 +3104,4 @@ g.toggled:hover circle {
 #app {
     transition: background-position 0.7s cubic-bezier(.56,.01,.47,1);
 }
-
-@keyframes ldio-maow20pnz3n {
-  0% { background: #0d7632 }
-  12.5% { background: #0d7632 }
-  12.625% { background: #1db954 }
-  100% { background: #1db954 }
-}
-.ldio-maow20pnz3n div {
-  position: absolute;
-  width: 41.4px;
-  height: 41.4px;
-  background: #1db954;
-  animation: ldio-maow20pnz3n 2.1739130434782608s linear infinite;
-}
-.loadingio-spinner-blocks-9iznv02imnw {
-  width: 207px;
-  height: 207px;
-  display: inline-block;
-  overflow: hidden;
-  background: none;
-}
-.ldio-maow20pnz3n {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: translateZ(0) scale(1);
-  backface-visibility: hidden;
-  transform-origin: 0 0; /* see note above */
-}
-.ldio-maow20pnz3n div { box-sizing: content-box; }
 </style>
