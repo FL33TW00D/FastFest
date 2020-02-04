@@ -40,10 +40,6 @@
    "Continent": "AS"
  },
  {
-   "Country": "AQ",
-   "Continent": "AN"
- },
- {
    "Country": "AR",
    "Continent": "SA"
  },
@@ -134,10 +130,6 @@
  {
    "Country": "BT",
    "Continent": "AS"
- },
- {
-   "Country": "BV",
-   "Continent": "AN"
  },
  {
    "Country": "BW",
@@ -364,10 +356,6 @@
    "Continent": "EU"
  },
  {
-   "Country": "GS",
-   "Continent": "AN"
- },
- {
    "Country": "GT",
    "Continent": "NA"
  },
@@ -386,10 +374,6 @@
  {
    "Country": "HK",
    "Continent": "AS"
- },
- {
-   "Country": "HM",
-   "Continent": "AN"
  },
  {
    "Country": "HN",
@@ -858,10 +842,6 @@
  {
    "Country": "TD",
    "Continent": "AF"
- },
- {
-   "Country": "TF",
-   "Continent": "AN"
  },
  {
    "Country": "TG",
