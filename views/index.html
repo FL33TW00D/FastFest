@@ -20,7 +20,7 @@
 
 <body style="overflow-x: hidden;">
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-     style="background-image: url('https://trello-attachments.s3.amazonaws.com/5e35b89a44c05959a390e6c8/5e374823323b4d8320ae2d55/530317bc648a331247d50b7c06da45b9/veccycamp.png'); background-size: auto 100%; height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
+     style="background-image: url('/veccycamp.png'); background-size: auto 100%; height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
     <span class="px-3" style="color:#1DB954; font-weight:600; font-size: 60px;">fastfest</span>
     <div class="container-fluid m-0 p-0" style="height:calc(100% - 100px);">
         <div v-if="authenticated === false" class="row h-100 mx-4">
@@ -28,12 +28,12 @@
                 <div class="mx-auto" style="max-width: 400px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
-                              :style="[authenticated ? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(https://www.kirkham-legal.co.uk/wp-content/uploads/2017/02/profile-placeholder.png)'}]">
+                              :style="[authenticated ? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(profile-placeholder.png)'}]">
                         </span>
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a href= "https://fastfest.herokuapp.com/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a href= "http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -2820,12 +2820,12 @@ let app = new Vue({
     },
     methods: {
         next_page() { 
-            this.background_position -= 100;
+            this.background_position -= 420;
             this.page++; 
             this.moved_back = false;
         },
         prev_page() {
-            this.background_position += 100;
+            this.background_position += 420;
             this.page--; 
             this.moved_back = true;
         },
@@ -3068,6 +3068,6 @@ g:hover circle{
 }
 
 #app {
-    transition: background-position .4s ease-out;
+    transition: background-position 0.7s ease-out;
 }
 </style>
