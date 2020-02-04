@@ -21,11 +21,18 @@
 <body style="overflow-x: hidden;">
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
      style="background-image: url('/veccycamp.png'); background-size: auto 100%; height:100vh; width:100vw; color:white; font-family:'Montserrat', sans-serif;">
-    <span class="px-3" style="color:#1DB954; font-weight:600; font-size: 60px;">fastfest</span>
+    <!-- <span class="px-3" style="color:#1DB954; font-weight:600; font-size: 60px;">fastfest</span> -->
+    <div class="mx-auto" style="max-width:300px;">
+        <div style="max-width:300px;">
+            <span style="position:fixed; left:1vw; top:1vh; width:100%; background-size:400px; height:auto; min-height:100%; display:inline-block;background-repeat: no-repeat;" 
+                :style="[{'backgroundImage': 'url(fastfest-logo.png)'}]">
+            </span>
+        </div>
+    </div>
     <div class="container-fluid m-0 p-0" style="height:calc(100% - 100px);">
         <div v-if="authenticated === false" class="row h-100 mx-4">
             <div id="login" class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
-                <div class="mx-auto" style="max-width: 400px;">
+                <div class="mx-auto" style="max-width: 450px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
                               :style="[authenticated ? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(profile-placeholder.png)'}]">
@@ -33,7 +40,7 @@
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a href= "https://fastfest.herokuapp.com/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a href= "http://localhost:3000/api/login" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -47,7 +54,7 @@
         </div>
         <div v-else class="row h-100 mx-4">
             <div v-if="page === 0" id="login" class="col-12 my-auto">
-                <div class="mx-auto" style="max-width: 500px;">
+                <div class="mx-auto" style="max-width: 450px;">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
                               :style="[(authenticated && profile.images)? {'backgroundImage': 'url(' + profile.images[0].url + ')'} : {'backgroundImage': 'url(profile-placeholder.png)'}]">
@@ -56,8 +63,8 @@
                     <div style="text-align: center;">
                         <span>{{ profile.display_name }}<br></span>
                         <span style="border-radius: 20px !important;">
-                            <a @click="logout" class="btn btn-secondary" role="button" style="border-radius: 18px;margin: 10px;">
-                                <i class="fab fa-spotify fa-lg"></i>
+                            <a @click="logout" class="btn btn-danger" role="button" style="border-radius: 18px;margin: 10px;">
+                                <i class="fab fa-spotify fa-lg" style="vertical-align: -.14em;"></i>
                                 Logout
                             </a>
                         </span>
@@ -65,7 +72,7 @@
                 </div>
             </div>
             <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center" style="font-size: 36px; font-weight: 500;">How far would you travel?</div>
-            <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
+            <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 20px);">
                 <div id="world-map" class="mx-auto my-auto">
                     <svg viewBox="0 0 845.2 458" class="d-block mx-auto my-auto" style="max-height:calc(100vh - 200px);">
                         <!-- ASIA -->
@@ -2745,7 +2752,6 @@
             </div>
             <div v-if="page === total_pages" class="col-12 my-auto">
                 <div class="mx-auto text-center h-100">
-                    {{calculating ? 'Calculating' : ''}}
                     <div v-if="matches.length > 0" class="row h-100">
                         <div class="col-12">
                             <div class="mx-auto" style="max-width:320px;">
@@ -2822,12 +2828,12 @@ let app = new Vue({
     },
     methods: {
         next_page() { 
-            this.background_position -= 500;
+            this.background_position -= 1500;
             this.page++; 
             this.moved_back = false;
         },
         prev_page() {
-            this.background_position += 500;
+            this.background_position += 1500;
             this.page--; 
             this.moved_back = true;
         },
@@ -3095,6 +3101,36 @@ g.toggled:hover circle {
 }
 
 #app {
-    transition: background-position .7s ease-out;
+    transition: background-position 0.7s cubic-bezier(.56,.01,.47,1);
 }
+
+@keyframes ldio-maow20pnz3n {
+  0% { background: #0d7632 }
+  12.5% { background: #0d7632 }
+  12.625% { background: #1db954 }
+  100% { background: #1db954 }
+}
+.ldio-maow20pnz3n div {
+  position: absolute;
+  width: 41.4px;
+  height: 41.4px;
+  background: #1db954;
+  animation: ldio-maow20pnz3n 2.1739130434782608s linear infinite;
+}
+.loadingio-spinner-blocks-9iznv02imnw {
+  width: 207px;
+  height: 207px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.ldio-maow20pnz3n {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-maow20pnz3n div { box-sizing: content-box; }
 </style>
