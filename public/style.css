@@ -1,21 +1,21 @@
-html, body, #app {
-  height:100%; overflow: hidden;
+html, body {
+  height:100%;
+}
+
+#app {
+  height:100%; 
+  overflow: hidden;
 }
 
 html {
   font-family:'Montserrat', sans-serif;
 }
 
-#brand-white {
-  visibility: hidden;
+#brand {
+  position:absolute; 
+  left:74px; 
+  top:6px;
   color:#fff; 
-  font-weight:600; 
-  font-size: 55px;
-}
-
-#brand-green {
-  visibility: hidden;
-  color:#1DB954; 
   font-weight:600; 
   font-size: 55px;
 }
@@ -78,6 +78,10 @@ h4 {
 @media (hover: none) {
   g.gb circle {
     stroke-width: 70;
+  }
+
+  #brand {
+    top:10px;
   }
 }
 
