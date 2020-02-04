@@ -28,7 +28,7 @@
     <div class="container-fluid mx-0 mb-0 p-0" style="height:calc(100% - 100px); margin-top: 90px;">
         <div v-if="authenticated !== null">
             <div style="position:absolute; left:10px; top:10px; width:90px; background-size:90px; min-height:90px; background-repeat: no-repeat; background-image: url(V-Logo.png)" ></div>
-            <div id="brand"><span>fast</span><span style="color:#1DB954;">fest</span></div>
+            <div id="brand" class="d-none d-md-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
         </div>
         <div v-if="authenticated === false" class="row h-100 mx-4">
             <div id="login" class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
@@ -73,8 +73,8 @@
             </div>
             <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center"><h1>How far would you travel?</h1></div>
             <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
-                <div id="world-map" class="mx-auto" style="">
-                    <svg viewBox="0 0 845.2 458" class="d-block mx-auto my-auto" style="max-height:calc(100vh - 200px);">#
+                <div class="mx-auto">
+                    <svg id="world-map" viewBox="0 0 845.2 458" class="d-block mx-auto my-auto">#
                         <!-- ASIA -->
                         <g @mouseover="mapTitle = 'Asia'" @mouseleave="mapTitle = ''" @click="clickMap('AS')" :class="[regions.includes('AS') ? 'toggled' : '']">    
                             <circle class="st0" cx="724.4" cy="164.6" r="1.9"/>

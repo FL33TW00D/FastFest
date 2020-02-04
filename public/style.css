@@ -28,6 +28,15 @@ h4 {
   font-size: 1rem !important;
 }
 
+#world-map {
+  max-height: 110%;
+  width:100vw; 
+  position:absolute; 
+  top:calc(50% - 1.5rem); 
+  left:50%; 
+  transform: translate(-50%, -50%);
+}
+
 /* Extra small devices (portrait phones, less than 576px) */
 /* No media query since this is the default in Bootstrap */
 
@@ -38,11 +47,6 @@ h4 {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  #brand {
-    visibility: visible;
-    /* display: inline; */
-  }
-
   h1 {
     font-size: 2.5rem !important;
   }
