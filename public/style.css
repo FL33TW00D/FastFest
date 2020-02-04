@@ -6,7 +6,14 @@ html {
   font-family:'Montserrat', sans-serif;
 }
 
-#brand {
+#brand-white {
+  visibility: hidden;
+  color:#fff; 
+  font-weight:600; 
+  font-size: 55px;
+}
+
+#brand-green {
   visibility: hidden;
   color:#1DB954; 
   font-weight:600; 
@@ -155,5 +162,5 @@ g.toggled circle {
 
 
 #app {
-    transition: background-position .7s ease-out;
+    transition: background-position .7s cubic-bezier(.54,.01,.43,1);
 }

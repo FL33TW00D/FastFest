@@ -25,14 +25,16 @@
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
      style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
-    <span id="brand" class="px-3">fastfest</span>
+    
     <div class="mx-auto" style="max-width:300px;">
         <div style="max-width:300px;">
-            <span style="position:fixed; left:1vw; top:1vh; width:100%; background-size:400px; height:auto; min-height:100%; display:inline-block;background-repeat: no-repeat;" 
-                :style="[{'backgroundImage': 'url(fastfest-logo.png)'}]">
+            <span style="position:fixed; left:1vw; top:1vh; width:100%; background-size:120px; height:auto; min-height:100%; display:inline-block;background-repeat: no-repeat;" 
+                :style="[{'backgroundImage': 'url(V-Logo.png)'}]">
             </span>
+            <span id="brand-white" class="px-3">fast</span><span id="brand-green" class="px-3">fest</span>
         </div>
     </div>
+
     <div class="container-fluid m-0 p-0" style="height:calc(100% - 100px);">
         <div v-if="authenticated === false" class="row h-100 mx-4">
             <div id="login" class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
@@ -2831,7 +2833,7 @@ let app = new Vue({
     },
     methods: {
         next_page() { 
-            this.background_position -= 1500;
+            this.background_position -= 5382 * window.innerHeight / 1440;
             this.page++; 
             // this.moved_back = false;
         },
@@ -2840,7 +2842,7 @@ let app = new Vue({
                 this.fes
                 this.matches = [];
             }
-            this.background_position += 1500;
+            this.background_position += 5382 * window.innerHeight / 1440;
             this.page--; 
             // this.moved_back = true;
         },
