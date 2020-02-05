@@ -287,6 +287,12 @@ h6:after {
   width: 300px !important;
 }
 
+#app .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+#app .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0.5;
+}
 /* .bounce-enter-active {
   animation: bounce-in 1.2s;
 }
