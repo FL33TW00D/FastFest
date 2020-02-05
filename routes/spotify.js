@@ -1,5 +1,6 @@
 var express = require('express'); // Express web server framework
 var router = express.Router();
+var env = require('../public/env'); //environment variables
 var request = require('request'); // "Request" library
 const fetch = require('node-fetch');
 var cors = require('cors');
@@ -10,7 +11,7 @@ const cache = new NodeCache({ stdTTL: 900, checkperiod: 0, deleteOnExpire: true 
 
 var client_id = '227a07d727b84fc38f34b255cbc1944f'; // Your client id
 var client_secret = '4bf79f41ea064a5ba58f26a557b1bb7f'; // Your secret
-var redirect_uri = process.env.BASE_URI + '/api/callback'; // Your redirect uri
+var redirect_uri = env.HOSTNAME + '/api/callback'; // Your redirect uri
 console.log(redirect_uri);
 /**
  * Generates a random string containing numbers and letters
@@ -101,7 +102,7 @@ router.get('/callback', function(req, res) {
         });
         
         // we can also pass the token to the browser to make requests from there
-        res.redirect(process.env.BASE_URI + '/#' +
+        res.redirect(env.HOSTNAME + '/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token

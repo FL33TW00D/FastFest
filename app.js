@@ -10,6 +10,7 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var spotifyRouter = require('./routes/spotify');
+var env = require('./public/env');
 var app = express();
 
 // view engine setup
@@ -46,6 +47,7 @@ app.use(function(err, req, res, next) {
 
 
 
-console.log('server running at ' + process.env.BASE_URI);
+console.log('server running at ' + env.HOSTNAME);
+// console.log('server running at http://192.168.1.11:3000');
 
 module.exports = app;
