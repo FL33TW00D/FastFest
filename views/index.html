@@ -48,7 +48,11 @@
                 </div>
             </div>
             <div class="col-12 col-lg-7 col-xl-8 my-auto text-center">
-                <h1>Log in with Spotify to find the best festival for you!</h1>
+                <h1>Welcome to</h1>
+            
+                <span id="brand-white">fast</span><span id="brand-green">fest</span>
+                <h2>The smart Spotify festival finder</h2>
+                <h3>Log in with Spotify to find the best festival for you!</h3>
             </div>
         </div>
         <div v-else class="row h-100 mx-4">
@@ -2752,13 +2756,17 @@
                     <img v-if="calculating" src="/blocks.gif">
                     <div v-if="matches.length > 0" class="row h-100">
                         <div class="col-12">
+                            <h6 :data-heading="matches[0].name">
+                                {{matches[0].name}}
+                            </h6>
+                        </div>
+                        <!-- <div class="col-12">
                             <div class="mx-auto" style="max-width:320px;">
                                 <span style="padding-bottom: 100%; width: 100%; border-radius: 2%; display:inline-block; background-size: cover;" 
                                       :style="[{'backgroundImage': 'url(' + matches[0].logo + ')'}]">
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-12" style="font-size: 40px;"><h1>{{matches[0].name}}</h1></div>
+                        </div> -->
                     </div>
                     <!-- <b-table borderless small :items="matches"></b-table> -->
                 </div>
