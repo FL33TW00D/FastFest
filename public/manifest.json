@@ -1,0 +1,17 @@
+{
+    "short_name": "FastFest",
+    "name": "FastFest",
+    "icons": [
+      {
+        "src": "/images/V-logo.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#1DB954",
+    "display": "fullscreen",
+    "scope": "/",
+    "theme_color": "#1DB954"
+  }
+  

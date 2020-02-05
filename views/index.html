@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <title>fastfest</title>
     <meta name="description" content="Which festival should I go to?">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
     <!-- Was making an annoying error so got rid of webmanifest -->
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
 
@@ -25,9 +24,9 @@
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
      style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
-    <div class="container-fluid mx-0 mb-0 p-0" style="height:calc(100% - 100px); margin-top: 90px;">
-        <div v-if="authenticated !== null">
-            <div style="position:absolute; left:10px; top:10px; width:90px; background-size:90px; min-height:90px; background-repeat: no-repeat; background-image: url(V-Logo.png)" ></div>
+    <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
+        <div id="brand-wrapper" v-if="authenticated !== null">
+            <div id="logo" style="position:absolute; left:10px; top:10px; width:90px; background-size:90px; min-height:90px; background-repeat: no-repeat; background-image: url(V-Logo.png)" ></div>
             <div id="brand" class="d-none d-md-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
         </div>
         <div v-if="authenticated === false" class="row h-100 mx-4">
