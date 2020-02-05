@@ -39,7 +39,7 @@
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a :href= "host +'/api/login'" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a :href= "host +'/api/login'" class="btn btn-success unselectable" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-7 col-xl-8 my-auto text-center">
+            <div class="col-12 col-lg-7 col-xl-8 my-auto text-center unselectable">
                 <div>
                     <h1>Welcome to</h1> 
                     <h1><span style="font-size: 110px;" class="mt-0">fast<span style="color:#1DB954;">fest</span></span></h1>
@@ -61,7 +61,7 @@
         <div v-else class="h-100 mx-lg-4">
             <div class="row h-100 mx-lg-4">
                 <div v-if="page === 0" class="col-12 h-100"></div>
-                <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center"><h1>How far would you travel?</h1></div>
+                <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center unselectable"><h1>How far would you travel?</h1></div>
                 <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
                     <transition appear name="bounce"></transition>
                         <div class="mx-auto">
@@ -2744,7 +2744,7 @@
                     <div class="mx-auto text-center h-100">
                         <img v-if="calculating" src="/blocks.gif">
                         <div v-if="matches.length > 0" class="row h-100">
-                            <div class="col-12">
+                            <div class="col-12 unselectable">
                                 <h6 :data-heading="matches[0].name">
                                     {{matches[0].name}}
                                 </h6>
