@@ -63,8 +63,8 @@
                 <div v-if="page === 0" class="col-12 h-100"></div>
                 <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center unselectable"><h1>How far would you travel?</h1></div>
                 <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
-                    <transition appear name="bounce"></transition>
-                        <div class="mx-auto">
+                    <div class="mx-auto">
+                        <transition appear name="rise"></transition>
                             <svg id="world-map" viewBox="0 0 845.2 458" class="d-block mx-auto my-auto">#
                                 <!-- ASIA -->
                                 <g @mouseover="mapTitle = 'Asia'" @mouseleave="mapTitle = ''" @click="clickMap('AS')" :class="[regions.includes('AS') ? 'toggled' : '']">    
@@ -2737,12 +2737,12 @@
                                 </g>
                             </svg>
                             <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%);"><h4>{{ mapTitle }}</h4></div>
-                        </div>
-                    </transition>
+                        </transition>
+                    </div>
                 </div>
                 <div v-else-if="page === total_pages" class="col-12">
                     <div class="mx-auto text-center h-100">
-                        <img v-if="calculating" src="/blocks.gif">
+                        <img v-if="calculating" src="/blocks.gif" style="max-width: 30%; max-height: 30%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         <div v-if="matches.length > 0" class="row h-100">
                             <div class="col-12 unselectable">
                                 <h6 :data-heading="matches[0].name">
@@ -2807,6 +2807,7 @@ let app = new Vue({
     data() {
         return {
             total_pages: 2,
+            ready: false,
 
             authenticated: null,
             access_token: '',
@@ -2959,14 +2960,25 @@ let app = new Vue({
             });
             
             console.log(this.scoreMap);
+
+            this.ready = true;
         },
         scoringFunction(position, mapType){
             let scalingFactor = 0.05;
             let score = (100/Math.pow(2,(position * scalingFactor)));
             return score;
         },
+        wait() {
+            return new Promise(((resolve, reject) => {
+                (function waitUntilReady(){
+                    if (this.ready) return resolve();
+                    setTimeout(waitUntilReady.bind(this), 200);
+                }).bind(this)();
+            }).bind(this));
+        },
         async calculate() {
             this.calculating = true;
+            await this.wait();
 
             let filtered_festivals = [];
             if (this.countrySet.size > 0) {

@@ -104,6 +104,7 @@ g.toggled circle {
   top:calc(50% - 1.5rem); 
   left:50%; 
   transform: translate(-50%, -50%);
+  opacity: 1;
 }
 
 
@@ -148,7 +149,7 @@ g.toggled circle {
 /* XXL devices (extra large desktops, 1500px and up) */
 @media (min-width: 1500px) {
   #app h6 {
-    font-size: 60px !important;
+    font-size: 70px !important;
   }
 }
 
@@ -181,7 +182,7 @@ g.toggled circle {
   }
 
   #app h6 {
-    top: 70px;
+    top: 10px;
   }
 
   #app #display-picture .shrink-enter {
@@ -217,14 +218,14 @@ g.toggled circle {
 h6{
   font-family: "CoreCircus", sans-serif;
   text-transform: uppercase;
-  font-size: 30px !important;
+  font-size: 32px !important;
   text-align: center;
   line-height: 1;
   margin: 0;
-  top: 50px;
+  top: 0px;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
   position: absolute;
   color: #f98ca4;
   text-shadow: -1px -1px 0 #6e1f58, 1px -1px 0 #6e1f58, -1px 1px 0 #6e1f58, 1px 1px 0 #6e1f58, 1px 0px 0px #65f283, 0px 1px 0px #65f283, 2px 1px 0px #65f283, 1px 2px 0px #65f283, 3px 2px 0px #65f283, 2px 3px 0px #65f283, 4px 3px 0px #65f283, 3px 4px 0px #65f283, 5px 4px 0px #65f283, 3px 5px 0px #6e1f58, 6px 5px 0px #6e1f58, -1px 2px 0 black, 0 3px 0 #6e1f58, 1px 4px 0 #6e1f58, 2px 5px 0px #6e1f58, 2px -1px 0 #6e1f58, 3px 0 0 #6e1f58, 4px 1px 0 #6e1f58, 5px 2px 0px #6e1f58, 6px 3px 0 #6e1f58, 7px 4px 0 #6e1f58;
@@ -277,7 +278,7 @@ h6:after {
 
 .move-enter-active {
   transition: all .6s;
-  transition-delay: 1.5s;
+  transition-delay: 1.25s;
 }
 
 #app .move-enter {
@@ -289,28 +290,10 @@ h6:after {
 
 .shrink-enter-active {
   transition: all .6s;
-  transition-delay: 1.5s;
+  transition-delay: 1.25s;
 }
 
 #app .shrink-enter {
   width: 300px !important;
 }
 
-/* .bounce-enter-active {
-  animation: bounce-in 1.2s;
-}
-
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  80% {
-    transform: scale(0);
-  }
-  90% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-} */
