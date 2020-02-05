@@ -1,5 +1,5 @@
 env = {
-    HOSTNAME: 'https://fastfest.herokuapp.com'
+    HOSTNAME: 'http://localhost:3000/'
 }
   
 module.exports = env;
