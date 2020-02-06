@@ -2773,7 +2773,7 @@
                                 {{matches[0].name}}
                             </h6>
                             <span id="show-more" @click="show_more = !show_more">
-                                <i class="fas fa-chevron-down fa-3x"></i>
+                                <i class="fas fa-chevron-down fa-3x" :class="[show_more ? '' : 'fa-rotate-180']"></i>
                             </span>
                         </div>
                         <!-- <b-table borderless small :items="matches"></b-table> -->
@@ -2874,7 +2874,7 @@ let app = new Vue({
         },
         prev_page() {
             if (this.page === this.total_pages) {
-                this.fes
+                this.show_more = false;
                 this.matches = [];
             }
             this.background_position += 2691 * window.innerHeight / 1440;
@@ -2914,7 +2914,7 @@ let app = new Vue({
             await fetch('https://api.spotify.com/v1/me', headers)
                 .then(response => response.json())
                 .then((data) => {
-                    if (!data.hasOwnProperty('status')) {
+                    if (!data.hasOwnProperty('error')) {
                         this.profile = data;
                         this.authenticated = true;
                         console.log(this.profile);
