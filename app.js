@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, 'public/images')));
+app.use(express.static(path.join(__dirname, 'public/favicons')));
 app.use('/fa', express.static(__dirname + '/node_modules/font-awesome/css'));
 app.use(cors());
 

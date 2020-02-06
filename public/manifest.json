@@ -1,17 +1,50 @@
 {
-    "short_name": "FastFest",
-    "name": "FastFest",
-    "icons": [
-      {
-        "src": "/images/V-logo.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      }
-    ],
-    "start_url": "/",
-    "background_color": "#1DB954",
-    "display": "fullscreen",
-    "scope": "/",
-    "theme_color": "#1DB954"
-  }
-  
+  "short_name": "fastfest",
+  "name": "fastfest",
+  "icons": [
+    {
+      "src": "/public/favicons/favicon-32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+	    {
+      "src": "/public/favicons/favicon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+	    {
+      "src": "/public/favicons/favicon-152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/public/favicons/favicon-167.png",
+      "type": "image/png",
+      "sizes": "167x167"
+    },
+	{
+      "src": "/public/favicons/favicon-167.png",
+      "type": "image/png",
+      "sizes": "167x167"
+    },
+	{
+      "src": "/public/favicons/favicon-180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+	{
+      "src": "/public/favicons/favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+	{
+      "src": "/public/favicons/favicon-196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#1db954"
+}

@@ -5,7 +5,7 @@
     <title>fastfest</title>
     <meta name="description" content="Which festival should I go to?">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
-    <!-- Was making an annoying error so got rid of webmanifest -->
+
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
@@ -19,15 +19,26 @@
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> 
     <script type="text/javascript" src="env.js"></script>
+    <!-- GOOGLE ADWORDS -->
+    <script data-ad-client="ca-pub-9268625376425767" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <!-- generics -->
+    <link rel="icon" href="/favicon-32.png" sizes="32x32">
+    <link rel="icon" href="/favicon-128.png" sizes="128x128">
+    <link rel="icon" href="/favicon-152.png" sizes="152x152">
+    <link rel="icon" href="/favicon-167.png" sizes="167x167">
+    <link rel="icon" href="/favicon-180.png" sizes="180x180">
+    <link rel="icon" href="/favicon-192.png" sizes="192x192">
+    <link rel="icon" href="/favicon-196.png" sizes="196x196">
 </head>
 
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
      style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
     <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
-        <div id="brand-wrapper" v-if="authenticated !== null">
+        <div id="brand-wrapper" v-if="authenticated !== null" style="z-index:200;">
             <div id="logo"></div>
-            <div id="brand" class="d-none d-md-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
+            <div id="brand" class="d-none d-sm-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
         </div>
         <div v-if="authenticated === false" class="row h-100 mx-lg-4">
             <div class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
@@ -39,7 +50,7 @@
                     </div>
                     <div style="text-align: center;">
                         <span style="border-radius: 20px !important;">
-                            <a :href= "host +'/api/login'" class="btn btn-success" role="button" style="border-radius: 18px;margin: 10px;">
+                            <a :href= "host +'/api/login'" class="btn btn-success unselectable" role="button" style="border-radius: 18px;margin: 10px;">
                                 <i class="fab fa-spotify fa-lg"></i>
                                 Login with Spotify
                             </a>
@@ -47,24 +58,40 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-7 col-xl-8 my-auto text-center">
-                <div>
-                    <h1>Welcome to</h1> 
-                    <h1><span style="font-size: 110px;" class="mt-0">fast<span style="color:#1DB954;">fest</span></span></h1>
-                
-                    
-                    <h3>The smart festival discovery app</h3>
-                    <h5 style="color:darkgray">Log in with Spotify and find your perfect festival!</h5>
+            <div class="col-12 col-lg-7 col-xl-8 mb-auto my-lg-auto text-center unselectable">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Welcome to</h1> 
+                    </div>
+                    <div class="col-12" style="height: 56px;">
+                        <div class="Iam">
+                            <b>
+                                <div class="innerIam">
+                                    <span>fast<span style="color:#1DB954;">fest</span></span><br/> 
+                                    <span>lollapa<span style="color:#f5b10b;">looza</span></span><br />
+                                    <span>coach<span style="color:#f98ca4;">ella</span></span><br />
+                                    <span>wire<span style="color:#65f283;">less</span></span><br />
+                                    <span>boom<span style="color:#4ad9db;">town</span></span>
+                                </div>
+                            </b>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <span >
+                            The smart festival discovery app <br>
+                            <span style="color:darkgrey">Log in with Spotify and find your perfect festival!</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div v-else class="h-100 mx-lg-4">
-            <div class="row h-100 mx-lg-4">
+        <div v-else class="h-100">
+            <div class="row h-100">
                 <div v-if="page === 0" class="col-12 h-100"></div>
-                <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 text-center"><h1>How far would you travel?</h1></div>
-                <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 69px - 36px);">
-                    <transition appear name="bounce"></transition>
-                        <div class="mx-auto">
+                <div v-if="page === 1" id="map-title" class="col-12 mx-auto px-0 mt-1 text-center unselectable"><h1>How far would you travel?</h1></div>
+                <div v-if="page === 1" class="col-12 px-0 my-auto" style="height:calc(100% - 70px);">
+                    <div class="mx-auto">
+                        <transition appear name="rise"></transition>
                             <svg id="world-map" viewBox="0 0 845.2 458" class="d-block mx-auto my-auto">#
                                 <!-- ASIA -->
                                 <g @mouseover="mapTitle = 'Asia'" @mouseleave="mapTitle = ''" @click="clickMap('AS')" :class="[regions.includes('AS') ? 'toggled' : '']">    
@@ -2737,18 +2764,45 @@
                                 </g>
                             </svg>
                             <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%);"><h4>{{ mapTitle }}</h4></div>
-                        </div>
-                    </transition>
+                        </transition>
+                    </div>
                 </div>
                 <div v-else-if="page === total_pages" class="col-12">
                     <div class="mx-auto text-center h-100">
-                        <img v-if="calculating" src="/blocks.gif">
-                        <div v-if="matches.length > 0" class="row h-100">
-                            <div class="col-12">
-                                <h6 :data-heading="matches[0].name">
-                                    {{matches[0].name}}
-                                </h6>
+                        <img v-if="calculating" src="/blocks.gif" style="max-width: 30%; max-height: 30%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <div v-if="matches.length > 0" id="result-container" :class="[show_more ? 'show-more' : '']">
+                            <h6 :data-heading="matches[0].name" class="unselectable">
+                                {{matches[0].name}}
+                            </h6>
+                            <div class="row mx-1 mx-md-5 mt-3">
+                                <div class="col-12 col-lg-10 offset-lg-1" style="font-family: 'CoreCircus', sans-serif; color: #4ad9db;">
+                                    <h3>Featuring artists you love...</h3>
+                                    <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
+                                </div>
+                                <!-- <div class="col-12 mt-3 mb-2">
+                                    <h2 style="font-family: 'CoreCircus', sans-serif;">{{ matches[0].matchedArtists[0] }}</h2>
+                                </div> -->
+                                <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)" 
+                                     class="col-12 col-sm-6 col-lg-5 my-2" 
+                                     :class="[index % 2 === 0 ? 'offset-lg-1' : '']">
+                                    <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match }}</h2>
+                                </div>
+                                <!-- <div class="col-6 my-3">
+                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
+                                </div>
+                                <div class="col-6 my-3">
+                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
+                                </div>
+                                <div class="col-6 my-3">
+                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
+                                </div>
+                                <div class="col-6 my-3">
+                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
+                                </div> -->
                             </div>
+                            <span id="show-more" @click="show_more = !show_more" :class="[show_more ? 'show-more' : '']">
+                                <i class="fas fa-chevron-down fa-2x" :class="[show_more ? '' : 'fa-rotate-180']"></i>
+                            </span>
                         </div>
                         <!-- <b-table borderless small :items="matches"></b-table> -->
                     </div>
@@ -2758,11 +2812,11 @@
     
         <span v-if="authenticated">
             <transition appear name="move">
-                <div id="display-picture">
+                <div id="profile">
                     <b-dropdown size="lg" menu-class="display-picture-dropdown" variant="link" toggle-class="text-decoration-none" no-caret>
                         <template v-slot:button-content>
                             <transition appear name="shrink">
-                                <img :src="authenticated && profile.images ? profile.images[0].url : url(profile-placeholder.png)" alt="Italian Trulli" style="border:#1DB954 solid 4px; border-radius: 50%; display: block; width: 75px;">
+                                <img id="display-picture" :src="authenticated && profile.images ? profile.images[0].url : '/profile-placeholder.png'" alt="Italian Trulli">
                             </transition>
                         </template>
                         <b-dropdown-item>
@@ -2782,17 +2836,17 @@
                     </b-button>
                 </span>
                 <span v-else style="border-radius: 20px !important;">
-                    <b-button @click="next_page" class="btn btn-secondary" style="border-radius: 18px;margin: 10px;">
-                        Next
+                    <b-button @click="next_page" class="btn btn-secondary" style="border-radius:50%; margin: 10px;">
+                        <!-- Next -->
                         <i class="fas fa-arrow-right"></i>
                     </b-button>
                 </span>
             </div>
             <div v-if="page > 0" style="text-align: center; position: absolute; bottom: 0; left: 0;">
                 <span style="border-radius: 20px !important;">
-                    <b-button @click="prev_page" class="btn btn-secondary" style="border-radius: 18px;margin: 10px;">
+                    <b-button @click="prev_page" class="btn btn-secondary" style="border-radius:50%; margin: 10px;">
                         <i class="fas fa-arrow-left"></i>
-                        Previous
+                        <!-- Previous -->
                     </b-button>
                 </span>
             </div>
@@ -2807,6 +2861,7 @@ let app = new Vue({
     data() {
         return {
             total_pages: 2,
+            ready: false,
 
             authenticated: null,
             access_token: '',
@@ -2815,6 +2870,7 @@ let app = new Vue({
             moved_back: false,
             calculating: false,
             mapTitle: '',
+            show_more: false,
 
             festivals: [],
             regions: [],
@@ -2846,7 +2902,7 @@ let app = new Vue({
         },
         prev_page() {
             if (this.page === this.total_pages) {
-                this.fes
+                this.show_more = false;
                 this.matches = [];
             }
             this.background_position += 2691 * window.innerHeight / 1440;
@@ -2886,10 +2942,16 @@ let app = new Vue({
             await fetch('https://api.spotify.com/v1/me', headers)
                 .then(response => response.json())
                 .then((data) => {
-                    this.profile = data;
-                    console.log(this.profile);
+                    if (!data.hasOwnProperty('error')) {
+                        this.profile = data;
+                        this.authenticated = true;
+                        console.log(this.profile);
+                    }
+                    else {
+                        this.logout();
+                        return;
+                    }
                 })
-            this.authenticated = true;
 
 
             console.log('POPULATING ARTISTS');
@@ -2959,14 +3021,25 @@ let app = new Vue({
             });
             
             console.log(this.scoreMap);
+
+            this.ready = true;
         },
         scoringFunction(position, mapType){
             let scalingFactor = 0.05;
             let score = (100/Math.pow(2,(position * scalingFactor)));
             return score;
         },
+        wait() {
+            return new Promise(((resolve, reject) => {
+                (function waitUntilReady(){
+                    if (this.ready) return resolve();
+                    setTimeout(waitUntilReady.bind(this), 200);
+                }).bind(this)();
+            }).bind(this));
+        },
         async calculate() {
             this.calculating = true;
+            await this.wait();
 
             let filtered_festivals = [];
             if (this.countrySet.size > 0) {
