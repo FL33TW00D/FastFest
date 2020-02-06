@@ -1,18 +1,64 @@
 <!doctype html>
 <head>
     <meta charset="utf-8">
-    <title>Festify+</title>
+    <title>fastfest</title>
     <meta name="description" content="Which festival should I go to?">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script> 
+    <script type="text/javascript" src="env.js"></script>
 </head>
-<body>
-    <div id="app" class="p-3" style="height:100vh; width:100vw; text-align:center; color:white; background-color:#191414; font-family:'Montserrat', sans-serif;">
-        <span style="color:#1DB954; font-weight:600; font-size: 60px; text-shadow: -0.5px 0.5px, 0.5px 0.5px, 0.5px -0.5px, -0.5px -0.5px; letter-spacing:-1px;">Festify+</span> <br>
-        <span style="font-weight: 800; font-size: 70px; color: white;display: inline; position: relative;">404</span><br>
-        <span style="font-weight: 800; font-size: 70px; color: white;display: inline; position: relative;">It seems you've encountered an error!</span>
-    </div>
+    <body>
+        <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
+            style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;">
+            <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
+                <div id="brand-wrapper" v-if="authenticated !== null">
+                    <div id="logo"></div>
+                    <div id="brand" class="d-none d-md-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
+                </div>
+                <div class="row h-100 mx-lg-4">
+                    <div class="col-12 col-lg-7 col-xl-8 text-center mx-auto" style="margin-top: 70px;">
+                        <div>
+                            <h1><span style="font-size: 70px;" class="mb-0">Sorry.</span>
+                            </h1>
+                            <h1 style="margin-top: -20px;"><span style="font-size: 110px;">404</span>
+                            </h1>
+                            <h2>Looks like something went wrong!</h2>
+                            <h4 style="color:darkgray">Please click the button below to return to safety.</h4>
+                            <span style="border-radius: 15px !important;">
+                                <a :href="host" class="btn btn-lg btn-success" role="button"
+                                    style="border-radius: 10px;margin: 10px; font-weight: 400;">
+                                    Back to safety!
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
+
+
+<script>
+let app = new Vue({
+    el: '#app',
+    data (){
+        return{
+
+        }
+    },
+    methods: {
+
+    },
+    created (){
+        this.host = env.HOSTNAME;
+    }
+});
+</script>
