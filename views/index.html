@@ -41,7 +41,7 @@
             <div id="brand" class="d-none d-sm-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
         </div>
         <div v-if="authenticated === false" class="row h-100 mx-lg-4">
-            <div class="col-12 col-lg-5 col-xl-4 order-lg-2 my-auto">
+            <div class="col-12 col-lg-6 col-xl-4 order-lg-2 my-auto">
                 <div id="login" class="mx-auto">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
@@ -58,12 +58,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-7 col-xl-8 mb-auto my-lg-auto text-center unselectable">
+            <div class="col-12 col-lg-6 col-xl-4 offset-xl-2 mb-auto my-lg-auto text-center unselectable">
                 <div class="row">
                     <div class="col-12">
                         <h1>Welcome to</h1> 
                     </div>
-                    <div class="col-12" style="height: 56px;">
+                    <div class="col-12" style="height: 84px;">
                         <div class="Iam">
                             <b>
                                 <div class="innerIam">
@@ -77,9 +77,10 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <span >
-                            The smart festival discovery app <br>
-                            <span style="color:darkgrey">Log in with Spotify and find your perfect festival!</span>
+                        <span>
+                            <span style="font-size: 1.5rem;">The smart festival discovery app</span> <br>
+                            <span style="position: relative; margin-top: -20px;">Log in now and find the perfect festival for you.</span>
+                            <!-- <span style="color:darkgrey"><h3>Log in with Spotify and find your perfect festival!</h3></span> -->
                         </span>
                     </div>
                 </div>
@@ -2774,35 +2775,29 @@
                             <h6 :data-heading="matches[0].name" class="unselectable">
                                 {{matches[0].name}}
                             </h6>
-                            <div class="row mx-1 mx-md-5 mt-3">
-                                <div class="col-12 col-lg-10 offset-lg-1" style="font-family: 'CoreCircus', sans-serif; color: #4ad9db;">
+                            <div class="row mx-sm-3 mx-md-5 mt-3">
+                                <div class="col-12 col-lg-10 offset-lg-1 px-5 pb-lg-2 pb-xl-3" style="font-family: 'CoreCircus', sans-serif; color: #4ad9db;">
                                     <h3>Featuring artists you love...</h3>
                                     <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
                                 </div>
-                                <!-- <div class="col-12 mt-3 mb-2">
-                                    <h2 style="font-family: 'CoreCircus', sans-serif;">{{ matches[0].matchedArtists[0] }}</h2>
-                                </div> -->
                                 <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)" 
                                      class="col-12 col-sm-6 col-lg-5 my-2" 
+                                     :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}"
                                      :class="[index % 2 === 0 ? 'offset-lg-1' : '']">
                                     <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match }}</h2>
                                 </div>
-                                <!-- <div class="col-6 my-3">
-                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
-                                </div>
-                                <div class="col-6 my-3">
-                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
-                                </div>
-                                <div class="col-6 my-3">
-                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
-                                </div>
-                                <div class="col-6 my-3">
-                                    <h2 style="font-weight: 700;">A Tribe Called Quest</h2>
-                                </div> -->
                             </div>
                             <span id="show-more" @click="show_more = !show_more" :class="[show_more ? 'show-more' : '']">
                                 <i class="fas fa-chevron-down fa-2x" :class="[show_more ? '' : 'fa-rotate-180']"></i>
                             </span>
+                            <div id="other-festivals">
+                                <div class="row mx-1 mx-sm-3 mx-md-5 ">
+                                    <div class="col-12 col-md-8 col-xl-6 offset-md-2 offset-xl-3 mt-3 px-3" style="font-family: 'CoreCircus', sans-serif; color: #f98ca4;">
+                                        <h3>Other Matched Festivals</h3>
+                                        <hr class="d-block" style="height:1px; border-top: 1px solid#65f283; margin: 0 0 10px; padding:0;">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- <b-table borderless small :items="matches"></b-table> -->
                     </div>
@@ -2891,7 +2886,9 @@ let app = new Vue({
             NA: new Set(),
             OC: new Set(),
             SA: new Set(),
-            countrySet: new Set()
+            countrySet: new Set(),
+
+            pastel_colours: ['#f5b10b', '#65f283', '#4ad9db', '#f98ca4', '#c7ceea', '#129a7d']
         }
     },
     methods: {

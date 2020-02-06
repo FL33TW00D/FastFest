@@ -63,7 +63,7 @@ g.toggled circle {
 }
 
 #result-container.show-more {
-  top:calc(-100%);
+  top:calc(-100% - 45px);
 }
 
 #app #show-more.show-more {
@@ -114,7 +114,7 @@ g.toggled circle {
 }
 
 #profile {
-  position:fixed; 
+  position: fixed; 
   top: 2px; 
   right: -5px;
 }
@@ -138,9 +138,9 @@ g.toggled circle {
 
 #result-container {
   height: calc(200% + 100px); 
-  width: 85%; 
+  width: 88%; 
   position: absolute; 
-  top: 0px; 
+  top: -5px; 
   left: 50%; 
   transform: translateX(-50%); 
   background-color: rgba(0,0,0,0.6);
@@ -149,11 +149,18 @@ g.toggled circle {
 
 #show-more {
   position: absolute; 
-  top:calc(50% - 70px); 
+  top:calc(50% - 65px); 
   left: 50%; 
   transform: translate(-50%);
   animation: bounce 2s;
   animation-delay: 3s;
+}
+
+#other-festivals {
+  position: absolute; 
+  bottom: 32px; 
+  height:calc(50% - 10px); 
+  width:100%;
 }
 
 
@@ -163,6 +170,11 @@ g.toggled circle {
 @media (min-width: 576px) {
   #app h6 {
     font-size: 40px !important;
+    max-width: 90%;
+  }
+
+  #display-picture {
+    width: 70px;
   }
 }
 
@@ -176,6 +188,10 @@ g.toggled circle {
     font-size: 1.5rem !important;
   }
 
+  h3 {
+    font-size: 1rem !important;
+  }
+
   h4 {
     font-size: 1.5rem !important;
   }
@@ -184,12 +200,20 @@ g.toggled circle {
     font-size: 40px !important;
     max-width: 60%;
   }
+
+  #display-picture {
+    width: 80px;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   #app h6 {
     font-size: 50px !important;
+  }
+
+  #display-picture {
+    width: 90px;
   }
 }
 
@@ -202,6 +226,14 @@ g.toggled circle {
 
   h2 {
     font-size: 1.8rem !important;
+  }
+
+  h3 {
+    font-size: 1.3rem !important;
+  }
+
+  #display-picture {
+    width: 100px;
   }
 }
 
@@ -255,16 +287,18 @@ g.toggled circle {
     margin-top: 10px;
   }
 
+  /* #app #result-container.show-more */
+
   #app #brand-wrapper #brand {
     display: none !important;
   }
 
   #result-container.show-more {
-    top:calc(-100% + 45px) !important;
+    top:calc(-100% + 8px) !important;
   }
 
   /* #app #show-more {
-    top:calc(50% - 80px); 
+    top: calc(50% - 80px); 
   } */
 }
 
@@ -294,7 +328,7 @@ g.toggled circle {
 /* ******************************************************************* */
 /* Final screen text effect copied from Mandy Michael's CodePen  */
 h6 {
-  max-width: 90%;
+  max-width: 100%;
   font-family: "CoreCircus", sans-serif;
   text-transform: uppercase;
   font-size: 30px !important;
@@ -393,9 +427,9 @@ h6:after {
   font-size: 42px;
   color: #999;
   position: absolute;
-  top: -42px;
+  top: -45px;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%) scale(1.5); 
 }
 
 .Iam > span {
