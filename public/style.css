@@ -12,6 +12,14 @@ h1 {
   font-size: 1.5rem !important;
 }
 
+h2 {
+  font-size: 1.2rem !important;
+}
+
+h3 {
+  font-size: 0.75rem !important;
+}
+
 h4 {
   font-size: 1rem !important;
 }
@@ -59,7 +67,7 @@ g.toggled circle {
 }
 
 #app #show-more.show-more {
-  transform: rotate(180);
+  animation: none;
 }
 
 /* ******************************************************************* */
@@ -135,13 +143,13 @@ g.toggled circle {
   top: 0px; 
   left: 50%; 
   transform: translateX(-50%); 
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.6);
   transition: all .3s ease;
 }
 
 #show-more {
   position: absolute; 
-  top:calc(50% - 90px); 
+  top:calc(50% - 70px); 
   left: 50%; 
   transform: translate(-50%);
   animation: bounce 2s;
@@ -164,12 +172,17 @@ g.toggled circle {
     font-size: 2.5rem !important;
   }
 
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
   h4 {
     font-size: 1.5rem !important;
   }
 
   #app h6 {
     font-size: 40px !important;
+    max-width: 60%;
   }
 }
 
@@ -184,6 +197,11 @@ g.toggled circle {
 @media (min-width: 1200px) {
   #app h6 {
     font-size: 55px !important;
+    max-width: 60%;
+  }
+
+  h2 {
+    font-size: 1.8rem !important;
   }
 }
 
@@ -204,7 +222,6 @@ g.toggled circle {
 
 /* Small devices (desktops, 768px and below) */
 @media (max-width: 768px) and (orientation: landscape) {
-
 }
 
 /* Medium devices (desktops, 992px and below) */
@@ -213,12 +230,26 @@ g.toggled circle {
     font-size: 1.5rem !important;
   }
 
+  #app h6 {
+    font-size: 30px !important;
+    max-width: 80% !important;
+  }
+
   #app #display-picture .shrink-enter {
     width: 200px !important;
   }  
+
+  /* #app #show-more {
+    top:calc(50% - 80px) !important; 
+  } */
 }
 
 @media (max-width: 1200px) and (orientation: landscape) {
+  #app h6 {
+    font-size: 35px !important;
+    max-width: 60%;
+  }
+
   #app #app-container {
     height:calc(100% - 20px); 
     margin-top: 10px;
@@ -229,12 +260,12 @@ g.toggled circle {
   }
 
   #result-container.show-more {
-    top:calc(-100% + 70px);
+    top:calc(-100% + 45px) !important;
   }
 
-  #app #show-more {
-    top:calc(50% - 110px); 
-  }
+  /* #app #show-more {
+    top:calc(50% - 80px); 
+  } */
 }
 
 
@@ -262,7 +293,8 @@ g.toggled circle {
 
 /* ******************************************************************* */
 /* Final screen text effect copied from Mandy Michael's CodePen  */
-h6{
+h6 {
+  max-width: 90%;
   font-family: "CoreCircus", sans-serif;
   text-transform: uppercase;
   font-size: 30px !important;
@@ -273,7 +305,7 @@ h6{
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-  position: absolute;
+  position: relative;
   color: #f98ca4;
   text-shadow: -1px -1px 0 #6e1f58, 1px -1px 0 #6e1f58, -1px 1px 0 #6e1f58, 1px 1px 0 #6e1f58, 1px 0px 0px #65f283, 0px 1px 0px #65f283, 2px 1px 0px #65f283, 1px 2px 0px #65f283, 3px 2px 0px #65f283, 2px 3px 0px #65f283, 4px 3px 0px #65f283, 3px 4px 0px #65f283, 5px 4px 0px #65f283, 3px 5px 0px #6e1f58, 6px 5px 0px #6e1f58, -1px 2px 0 black, 0 3px 0 #6e1f58, 1px 4px 0 #6e1f58, 2px 5px 0px #6e1f58, 2px -1px 0 #6e1f58, 3px 0 0 #6e1f58, 4px 1px 0 #6e1f58, 5px 2px 0px #6e1f58, 6px 3px 0 #6e1f58, 7px 4px 0 #6e1f58;
 }
@@ -356,15 +388,20 @@ h6:after {
 
 
 /* FRONT PAGE TEXT DISPLAY */
-body {
-  background: #2d2d2d;
+.Iam {
+  /* font: 40px/50px Montserrat, sans-serif; */
+  font-size: 42px;
+  color: #999;
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  transform: translate(-50%);
 }
 
-.Iam {
-  font: normal 40px/50px Montserrat, sans-serif;
-  color: #999;
-  position: relative;
+.Iam > span {
+  padding-bottom: 3px !important;
 }
+
 .Iam b {
   float: left;
   overflow: hidden;
@@ -372,42 +409,28 @@ body {
   height: 50px;
   top: 40px;
 }
+
 .Iam .innerIam {
   display: inline-block;
   color: #fff;
   position: relative;
   white-space: nowrap;
-  top: 0;
+  top: -8px;
   left: 0;
+  animation: move 6s;
+  animation-iteration-count: infinite;
 
-/*animation*/
--webkit-animation:move 5s;
-   -moz-animation:move 5s;
-    -ms-animation:move 5s;
-     -o-animation:move 5s;
-        animation:move 5s;
-/*animation-iteration-count*/
--webkit-animation-iteration-count:infinite;
-   -moz-animation-iteration-count:infinite;
-    -ms-animation-iteration-count:infinite;
-     -o-animation-iteration-count:infinite;
-        animation-iteration-count:infinite;
-/*animation-delay*/
--webkit-animation-delay:5s;
-   -moz-animation-delay:5s;
-    -ms-animation-delay:5s;
-     -o-animation-delay:5s;
-        animation-delay:5s;
 }
 @keyframes move{
-0%  { top: 0px; }
-20% { top: -50px; }
-40% { top: -100px; }
-60% { top: -150px; }
-80% { top: -200px; }
+0%  { top: -8px; }
+25% { top: -8px; }
+40% { top: -72px; }
+55% { top: -136px; }
+70% { top: -200px; }
+85% { top: -264px; }
 }
 
-@-webkit-keyframes move {
+/* @-webkit-keyframes move {
     0%  { top: 0px; }
     20% { top: -50px; }
     40% { top: -100px; }
@@ -434,4 +457,4 @@ body {
     40% { top: -100px; }
     60% { top: -150px; }
     80% { top: -200px; }
-}
+} */
