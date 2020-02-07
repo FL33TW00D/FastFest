@@ -2942,7 +2942,7 @@ let app = new Vue({
             //Typing Animation Data
             typeValue: '',
             typeStatus: false,
-            typeArray: ['Chris!', 'Dancers', 'Ravers', 'Rockers'],
+            typeArray: ['', 'Dancers', 'Ravers', 'Rockers'],
             typingSpeed: 200,
             erasingSpeed: 100,
             newTextDelay: 2000,
@@ -2981,6 +2981,7 @@ let app = new Vue({
                 .then((data) => {
                     if (!data.hasOwnProperty('error')) {
                         this.profile = data;
+                        this.typeArray[0] = this.profile.display_name.split(' ')[0] + '!';
                         this.authenticated = true;
                         console.log(this.profile);
                     }
