@@ -181,6 +181,7 @@ g.toggled circle {
   transform: translate(-50%);
   animation: bounce 2s;
   animation-delay: 3s;
+  cursor: pointer;
 }
 
 #more {
@@ -501,7 +502,7 @@ h6:after {
   white-space: nowrap;
   top: -8px;
   left: 0;
-  animation: move 6s;
+  animation: move 7s;
   animation-iteration-count: infinite;
 
 }
