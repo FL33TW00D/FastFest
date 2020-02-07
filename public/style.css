@@ -53,7 +53,7 @@ g.toggled circle {
 }
 
 #app .display-picture-dropdown .dropdown-item {
-  transform: translate(26px, -20px);
+  transform: translate(26px, -28px);
 }
 
 #app .display-picture-dropdown .dropdown-item:hover,
@@ -87,6 +87,10 @@ g.toggled circle {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+#menu-arrow.hover {
+  transform: translateY(25px);
 }
 
 /* ******************************************************************* */
@@ -143,6 +147,10 @@ g.toggled circle {
   border-radius: 50%; 
   display: block; 
   width: 60px;
+}
+
+#menu-arrow {
+  transition: all .2s ease;
 }
 
 #world-map {
