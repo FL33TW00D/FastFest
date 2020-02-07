@@ -441,13 +441,23 @@ h6:after {
   } 
 }
 
-#app .slide-fade-enter-active {
+#app .slide-fade-down-enter-active {
   transition: all .3s ease;
   transition-delay: 2.4s;
 }
-#app .slide-fade-enter, .slide-fade-leave-to
+#app .slide-fade-down-enter, .slide-fade-down-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateY(-10px);
+  opacity: 0;
+}
+
+#app .slide-fade-up-enter-active {
+  transition: all .3s ease;
+  transition-delay: 2.4s;
+}
+#app .slide-fade-up-enter, .slide-fade-up-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(40px);
   opacity: 0;
 }
 
@@ -529,11 +539,11 @@ h6:after {
 /* WELCOME TEXT */
 
 .typing-container{
-  transform: scale(2);
   top: 50%;
 }
 
 .typed-text {
+  transform: scale(2);
   font-weight: 700 !important;
 }
 
