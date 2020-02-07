@@ -70,6 +70,25 @@ g.toggled circle {
   animation: none;
 }
 
+.other-festival {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.other-festival-header {
+  border-color: transparent !important;
+}
+
+.other-festival-header > a {
+  height: 70px;
+  padding: 0;
+  text-align: left;
+  font-family: 'CoreCircus', sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /* ******************************************************************* */
 /* Targeting by ID */
 #app {
@@ -156,11 +175,16 @@ g.toggled circle {
   animation-delay: 3s;
 }
 
-#other-festivals {
+#more {
   position: absolute; 
   bottom: 32px; 
   height:calc(50% - 10px); 
   width:100%;
+}
+
+#other-festivals {
+  max-height: calc(100% - 70px); 
+  overflow-x: hidden;
 }
 
 
@@ -209,7 +233,7 @@ g.toggled circle {
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   #app h6 {
-    font-size: 50px !important;
+    font-size: 55px !important;
   }
 
   #display-picture {
@@ -220,7 +244,7 @@ g.toggled circle {
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   #app h6 {
-    font-size: 55px !important;
+    font-size: 65px !important;
     max-width: 60%;
   }
 
@@ -240,7 +264,7 @@ g.toggled circle {
 /* XXL devices (extra large desktops, 1500px and up) */
 @media (min-width: 1500px) {
   #app h6 {
-    font-size: 70px !important;
+    font-size: 80px !important;
   }
 }
 
@@ -270,16 +294,13 @@ g.toggled circle {
   #app #display-picture .shrink-enter {
     width: 200px !important;
   }  
-
-  /* #app #show-more {
-    top:calc(50% - 80px) !important; 
-  } */
 }
 
+/* Large devices (desktops, 992px and below) */
 @media (max-width: 1200px) and (orientation: landscape) {
   #app h6 {
-    font-size: 35px !important;
-    max-width: 60%;
+    font-size: 60px !important;
+    max-width: 70%;
   }
 
   #app #app-container {
@@ -335,7 +356,7 @@ h6 {
   text-align: center;
   line-height: 1;
   margin: 0;
-  top: 10px;
+  top: 5px;
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
@@ -431,7 +452,8 @@ h6:after {
 }
 
 
-/* FRONT PAGE TEXT DISPLAY */
+/* ******************************************************************* */
+/* Welcome to fastfest scrolling text */
 .Iam {
   /* font: 40px/50px Montserrat, sans-serif; */
   font-size: 42px;

@@ -2783,12 +2783,12 @@
                 <div v-else-if="page === total_pages" class="col-12">
                     <div class="mx-auto text-center h-100">
                         <img v-if="calculating" src="/blocks.gif" style="max-width: 30%; max-height: 30%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        <div v-if="matches.length > 0" id="result-container" :class="[show_more ? 'show-more' : '']">
+                        <div v-if="matches.length > 0" id="result-container" :class="[show_more ? 'show-more' : '']" style="font-family: 'CoreCircus', sans-serif;">
                             <h6 :data-heading="matches[0].name" class="unselectable">
                                 {{matches[0].name}}
                             </h6>
-                            <div class="row mx-sm-3 mx-md-5 mt-3">
-                                <div class="col-12 col-lg-10 offset-lg-1 px-5 pb-lg-2 pb-xl-3" style="font-family: 'CoreCircus', sans-serif; color: #4ad9db;">
+                            <div class="row mx-sm-3 mx-md-5 mt-3 mt-lg-4 mt-lg-5">
+                                <div class="col-12 col-lg-10 offset-lg-1 px-5 pb-lg-2 pb-xl-3" style="color: #4ad9db;">
                                     <h3>Featuring artists you love...</h3>
                                     <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
                                 </div>
@@ -2799,19 +2799,49 @@
                                     <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match }}</h2>
                                 </div>
                             </div>
-                            <span id="show-more" @click="show_more = !show_more" :class="[show_more ? 'show-more' : '']">
+                            <span id="show-more" @click="showMore" :class="[show_more ? 'show-more' : '']">
                                 <i class="fas fa-chevron-down fa-2x" :class="[show_more ? '' : 'fa-rotate-180']"></i>
                             </span>
-                            <div id="other-festivals">
-                                <div class="row mx-1 mx-sm-3 mx-md-5 ">
-                                    <div class="col-12 col-md-8 col-xl-6 offset-md-2 offset-xl-3 mt-3 px-3" style="font-family: 'CoreCircus', sans-serif; color: #f98ca4;">
+                            <div id="more">
+                                <div class="row mx-1 mx-sm-3 mx-md-5">
+                                    <div class="col-12 col-md-8 col-xl-6 offset-md-2 offset-xl-3 mt-3 px-3" style="color: #f98ca4;">
                                         <h3>Other Matched Festivals</h3>
                                         <hr class="d-block" style="height:1px; border-top: 1px solid#65f283; margin: 0 0 10px; padding:0;">
                                     </div>
                                 </div>
+                                <div id="other-festivals" ref="other_festivals" class="row mx-1 mx-sm-3 mx-md-5">
+                                    <div class="col-12 col-lg-10 col-xl-8 offset-lg-1 offset-xl-2 mt-2">
+                                        <template>
+                                            <div role="tablist">
+                                                <b-card v-for="(match, index) in matches" no-body class="other-festival mb-1">
+                                                    <b-card-header header-tag="header" class="other-festival-header p-1" role="tab">
+                                                        <b-button block href="#" v-b-toggle="match.name" variant="dark"
+                                                                  :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
+                                                                  <img :src="match.logo" style="height: 100%;">
+                                                            {{ index + 1 + '. ' + match.name }}
+                                                        </b-button>
+                                                    </b-card-header>
+                                                    <b-collapse :id="match.name" accordion="other-festivals" role="tabpanel">
+                                                        <b-card-body>
+                                                            <div class="row">
+                                                                <div class="col-8"></div>
+                                                                <div class="col-4">
+                                                                    <div>Your matches</div>
+                                                                    <div v-for="artist in match.matchedArtists" style="font-size: 14px;"
+                                                                         :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
+                                                                        {{ artist }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </b-card-body>
+                                                    </b-collapse>
+                                                </b-card>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- <b-table borderless small :items="matches"></b-table> -->
                     </div>
                 </div>
             </div>
@@ -2921,7 +2951,6 @@ let app = new Vue({
         next_page() { 
             this.background_position -= 2691 * window.innerHeight / 1440;
             this.page++; 
-            // this.moved_back = false;
         },
         prev_page() {
             if (this.page === this.total_pages) {
@@ -2930,25 +2959,6 @@ let app = new Vue({
             }
             this.background_position += 2691 * window.innerHeight / 1440;
             this.page--; 
-            // this.moved_back = true;
-        },
-        transition(current) {
-            // if (!this.moved_back) {
-            //     console.log('moved forward');
-            //     if (current === 0) return 'slideLeft';
-            //     // if (current === this.page) return 'slideRight';
-            //     if (current === this.page) return 'slideLeft';
-            //     else return 'slideRight';
-                
-            // }
-            // else {
-            //     console.log('moved back');
-            //     if (current === this.page) return 'slideRight';
-            //     else return 'slideLeft';
-            //     // if (current < this.page) return 'slideLeft';
-            //     // if (current === this.page) return 'slideLeft';
-            // }
-            return 'slideLeft';
         },
         async userAuthenticated(){
             //Authentication headers
@@ -3067,15 +3077,17 @@ let app = new Vue({
             let filtered_festivals = [];
             if (this.countrySet.size > 0) {
                 for (let festival of this.festivals){
-                    if (this.countrySet.has(festival.venue.country)) filtered_festivals.push(festival);
+                    if (this.countrySet.has(festival.venue.country) && !festival.eventname.includes('VIP Tickets')) filtered_festivals.push(festival);
                 }
             }
             else filtered_festivals = this.festivals;
 
+            console.log(filtered_festivals);
+
             let matches = [];
             let bestMatch = {name : "", score: Number.MIN_VALUE, matchedArtists: []};
             for(var fest of filtered_festivals){
-                let currentMatch = {name : fest.eventname.replace(' - ', ' '), score: 0, matchedArtists: [], artists: [], logo: fest.largeimageurl};
+                let currentMatch = {name : fest.eventname.split(" - ")[0], score: 0, matchedArtists: [], artists: [], logo: fest.largeimageurl};
                 for(var art of fest.artists){
                     currentMatch.artists.push(art.name);
                     if(this.scoreMap.has(art.name.toLowerCase())){
@@ -3083,7 +3095,7 @@ let app = new Vue({
                         currentMatch.matchedArtists.push(art.name);
                     }
                 }
-                if(currentMatch.score > 0 && typeof matches.find((element) => {return element.name === fest.eventname;}) === "undefined"){
+                if(currentMatch.score > 0 && typeof matches.find((element) => {return element.name === fest.eventname.split(" - ")[0];}) === "undefined"){
                     matches.push(currentMatch);
                 }
             }
@@ -3096,15 +3108,6 @@ let app = new Vue({
 
             this.matches = matches;
             this.calculating = false;
-        },
-        getHashParams(){
-            var hashParams = {};
-            var e, r = /([^&;=]+)=?([^&;]*)/g, q = window.location.hash.substring(1);
-            while ( e = r.exec(q)) {
-                hashParams[e[1]] = decodeURIComponent(e[2]);
-            } 
-            console.log(hashParams);
-            return hashParams;
         },
         logout(){
             sessionStorage.removeItem('spotify-access-token');
@@ -3126,6 +3129,10 @@ let app = new Vue({
                 if (window.matchMedia("(hover: none)").matches) this.mapTitle = '';
             }
         },
+        showMore() {
+            this.show_more = !this.show_more;
+            if (this.matches) this.$refs.other_festivals.click();
+        },
         async readCountryData(){
             await fetch('/api/countries')
                 .then(response => response.json())
@@ -3135,6 +3142,15 @@ let app = new Vue({
                         this[country.Continent].add(country.Country);
                     }
             });
+        },
+        getHashParams() {
+          var hashParams = {};
+          var e, r = /([^&;=]+)=?([^&;]*)/g,
+              q = window.location.hash.substring(1);
+          while ( e = r.exec(q)) {
+             hashParams[e[1]] = decodeURIComponent(e[2]);
+          }
+          return hashParams;
         },
         typeText(){
             if(this.charIndex < this.typeArray[this.typeArrayIndex].length){
