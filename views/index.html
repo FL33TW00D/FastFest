@@ -2820,14 +2820,14 @@
                                                         <b-button block href="#" v-b-toggle="match.name" variant="dark"
                                                                   :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
                                                                   <img :src="match.logo" style="height: 100%;">
-                                                            {{ match.name }}
+                                                            {{ match.score | round }} {{ match.name }}
                                                         </b-button>
                                                     </b-card-header>
                                                     <b-collapse :id="match.name" accordion="other-festivals" role="tabpanel">
                                                         <b-card-body>
                                                             <div class="row">
-                                                                <div class="col-12 col-md-8"></div>
-                                                                <div class="col-12 col-md-4 text-nowrap">
+                                                                <div class="col-12 col-md-6 col-lg-8"></div>
+                                                                <div class="col-12 col-md-6 col-lg-4 text-nowrap">
                                                                     <div>top matches</div>
                                                                     <div v-for="artist in match.matchedArtists" style="font-size: 14px; margin-right: -100%; margin-left: -100%;"
                                                                          :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
@@ -2923,6 +2923,7 @@ let app = new Vue({
             shortMap: new Map(),
             mediumMap: new Map(),
             longMap: new Map(),
+            playlistMap: new Map(),
             
             matches: [],
             background_position: 0,
@@ -3001,16 +3002,6 @@ let app = new Vue({
                     }
                 });
 
-            let playlists = [];
-            await fetch(`https://api.spotify.com/v1/users/${this.profile.id}/playlists?limit=50`, headers)
-                .then(response => response.json())
-                .then((data) => {
-                    console.log(data);
-                    for (let playlist of data.items) playlists.push(playlist.href);
-                });
-            
-            console.log(playlists);
-
             console.log('POPULATING ARTISTS');
             let data = await Promise.all([
                 fetch('https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=49', headers).then((response) => response.json()),
@@ -3019,13 +3010,14 @@ let app = new Vue({
                 fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50&offset=49', headers).then((response) => response.json()),
                 fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=49', headers).then((response) => response.json()),
                 fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=49', headers).then((response) => response.json()),
-                playlists.map(playlist => fetch(playlist, headers).then((response) => response.json()))
             ]);
+            
+            [short1, short2, medium1, medium2, long1, long2] = data;
 
-            for (let top_artists of [{ data: [...data[0].items, ...data[1].items], weight: 2/3 }, 
-                                     { data: [...data[2].items, ...data[3].items], weight: 1 }, 
-                                     { data: [...data[4].items, ...data[5].items], weight: 1/3 }]) {
-                let rank = 0;
+            for (let top_artists of [{ data: [...short1.items, ...short2.items], weight: 2/3 }, 
+                                     { data: [...medium1.items, ...medium2.items], weight: 1 }, 
+                                     { data: [...long1.items, ...long2.items], weight: 1/3 }]) {
+                rank = 0;
                 for (let artist of top_artists.data) {
                     if (!this.scoreMap.has(artist.name.toLowerCase())) {
                         artist.score = this.scoringFunction(rank++) * top_artists.weight;               //scale by provided weights
@@ -3033,11 +3025,56 @@ let app = new Vue({
                     }
                     else {                                                                              //if score map already contains this artist then aggregate scores
                         let new_key = this.scoreMap.get(artist.name.toLowerCase());
-                        new_key.score += this.scoringFunction(rank++ * top_artists.weight);
+                        new_key.score += this.scoringFunction(rank++) * top_artists.weight;
                         this.scoreMap.set(artist.name.toLowerCase(), new_key);
                     }
                 }
             }
+            
+            
+            // let tracks_urls = [];
+          
+            // for (let i = 100; i < playlist.total; i += 100) {
+            //     tracks_urls.push(playlists[playlist_no] + `?fields=items(added_by.id,track(artists))&offset=${i}`)
+            // }
+            // for (let track of playlist.items) {
+            //     if (track.added_by.id === this.profile.id) {
+            //         for (let artist of track.track.artists) {
+            //             if (!this.playlistMap.has(artist.name)) {
+            //                 this.playlistMap.set(artist.name, 1);
+            //             }
+            //             else {
+            //                 this.playlistMap.set(artist.name, this.playlistMap.get(artist.name) + 1);
+            //             }
+            //         }
+            //     }
+            // }
+      
+
+            // let tracks = await Promise.all(tracks_urls.map(url => fetch(url, headers).then((response) => response.json())));            
+            // for (let trackpage of tracks) {
+            //     for (let track of trackpage.items) {
+            //         if (track.added_by.id === this.profile.id) {
+            //             for (let artist of track.track.artists) {
+            //                 if (!this.playlistMap.has(artist.name)) {
+            //                     this.playlistMap.set(artist.name, 1);
+            //                 }
+            //                 else {
+            //                     this.playlistMap.set(artist.name, this.playlistMap.get(artist.name) + 1);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            // this.playlistMap = new Map([...this.playlistMap.entries()].sort(function(a, b) {
+            //     return a[1] > b[1] ? -1 : 1;
+            // }));
+
+            // let playlist_artists = Array.from(this.playlistMap.keys());
+            // console.log(playlist_artists);
+            // let rank = 0;
+            // for (let artist of playlist_artists) if (this.scoreMap.size < 600) this.scoreMap.set(artist.toLowerCase(), {score: this.scoringFunction(rank++), name: artist});
 
             //sort the scoreMap just so it's easier to read the console output for debugging - not necessary when deployed
             this.scoreMap = new Map([...this.scoreMap.entries()].sort(function(a, b) { 
@@ -3061,7 +3098,7 @@ let app = new Vue({
 
             this.festivals_ready = true;
         },
-        scoringFunction(position, mapType){
+        scoringFunction(position){
             let scalingFactor = 0.05;
             let score = (100/Math.pow(2,(position * scalingFactor)));
             return score;
@@ -3099,10 +3136,10 @@ let app = new Vue({
                     }
                 }
                 if(currentMatch.score > 0 && typeof matches.find((element) => {return element.name === fest.eventname.split(" - ")[0];}) === "undefined"){
+                    currentMatch.score = currentMatch.score * (1 + (currentMatch.matchedArtists.length / 3));
                     currentMatch.matchedArtists = currentMatch.matchedArtists.sort(function(a, b) { 
                         return a.score > b.score ? -1 : 1;
                     });
-                    console.log(currentMatch.matchedArtists);
                     matches.push(currentMatch);
                 }
             }
@@ -3204,6 +3241,11 @@ let app = new Vue({
         }
         
         this.host = env.HOSTNAME;
+    },
+    filters: {
+        round: function (value) {
+            return Math.round(value);
+        }
     },
     watch: {
         page(newValue) {
