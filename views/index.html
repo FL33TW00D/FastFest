@@ -2855,10 +2855,11 @@
                     <b-dropdown size="lg" menu-class="display-picture-dropdown" variant="link" toggle-class="text-decoration-none" no-caret>
                         <template v-slot:button-content>
                             <transition appear name="shrink">
-                                <img id="display-picture" :src="authenticated && profile.images ? profile.images[0].url : '/profile-placeholder.png'">
+                                <img id="display-picture" :src="authenticated && profile.images ? profile.images[0].url : '/profile-placeholder.png'" 
+                                     @mouseover="dp_hover = true" @mouseleave="dp_hover = false" />
                             </transition>
-                            <transition appear name="slide-fade-down">
-                                <i style= "color:#1DB954"class="fas fa-angle-down fa-lg"></i>
+                            <transition appear name="slide-fade">
+                                <i id="menu-arrow" style="color:#1DB954; position: relative; top:-28px; right:0; pointer-events: none;" class="fas fa-angle-down fa-lg" :class="[dp_hover ? 'hover' : '']"></i>
                             </transition>
                         </template>
                         <b-dropdown-item>
@@ -2903,6 +2904,7 @@ let app = new Vue({
     data() {
         return {
             total_pages: 2,
+            dp_hover: false,
             ready: false,
 
             authenticated: null,
