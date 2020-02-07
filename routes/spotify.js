@@ -41,7 +41,7 @@ router.get('/login', function(req, res) {
   console.log(req.headers);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email user-top-read';
+  var scope = 'user-read-private user-read-email user-top-read playlist-read-private';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -151,29 +151,28 @@ router.get('/skiddle', async function(req, res) {
   }
   else {
     let festivals = [];
-    let pages = 0;
+    let total = 0;
     await fetch('http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100')
-        .then(response => response.json())
-        .then(data => {
-            pages = Math.ceil(data.totalcount / 100);
-            festivals.push.apply(festivals, data.results);
-        });
+      .then(response => response.json())
+      .then(data => {
+          total = data.totalcount;
+          festivals.push.apply(festivals, data.results);
+      });
 
-    let base = 100;
-    for (let i = 1; i < pages; i++){
-        await fetch(`http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100&offset=${base}`)
-            .then(response => response.json())
-            .then(data => {
-                festivals.push.apply(festivals, data.results);
-            });
-        base += 100;
+    let urls = [];
+    for (let i = 100; i < total; i += 100){
+      urls.push(`http://www.skiddle.com/api/v1/events/search/?api_key=62a2932a3c0079d4f2d0dd00abfade5f&eventcode=FEST&description=1&order=goingto&limit=100&offset=${i}`);
     }
+
+    let data = await Promise.all(urls.map(page => fetch(page).then((response) => response.json())));
+    for (let page of data) festivals.push.apply(festivals, page.results);
 
     res.write(JSON.stringify(festivals));
     res.end();
 
-    cache.set('skiddle', JSON.stringify(festivals))
+    cache.set('skiddle', JSON.stringify(festivals));
   }
-})
+});
+
 
 module.exports = router;

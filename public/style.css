@@ -181,6 +181,7 @@ g.toggled circle {
   transform: translate(-50%);
   animation: bounce 2s;
   animation-delay: 3s;
+  cursor: pointer;
 }
 
 #more {
