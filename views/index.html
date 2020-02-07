@@ -2784,7 +2784,7 @@
                                      class="col-12 col-sm-6 col-lg-5 my-2" 
                                      :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}"
                                      :class="[index % 2 === 0 ? 'offset-lg-1' : '']">
-                                    <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match }}</h2>
+                                    <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</h2>
                                 </div>
                             </div>
                             <span id="show-more" @click="showMore" :class="[show_more ? 'show-more' : '']">
@@ -2793,7 +2793,7 @@
                             <div id="more">
                                 <div class="row mx-1 mx-sm-3 mx-md-5">
                                     <div class="col-12 col-md-8 col-xl-6 offset-md-2 offset-xl-3 mt-3 px-3" style="color: #f98ca4;">
-                                        <h3>Other Matched Festivals</h3>
+                                        <h3>your top matches</h3>
                                         <hr class="d-block" style="height:1px; border-top: 1px solid#65f283; margin: 0 0 10px; padding:0;">
                                     </div>
                                 </div>
@@ -2806,18 +2806,18 @@
                                                         <b-button block href="#" v-b-toggle="match.name" variant="dark"
                                                                   :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
                                                                   <img :src="match.logo" style="height: 100%;">
-                                                            {{ index + 1 + '. ' + match.name }}
+                                                            {{ match.name }}
                                                         </b-button>
                                                     </b-card-header>
                                                     <b-collapse :id="match.name" accordion="other-festivals" role="tabpanel">
                                                         <b-card-body>
                                                             <div class="row">
-                                                                <div class="col-8"></div>
-                                                                <div class="col-4">
-                                                                    <div>Your matches</div>
-                                                                    <div v-for="artist in match.matchedArtists" style="font-size: 14px;"
+                                                                <div class="col-12 col-md-8"></div>
+                                                                <div class="col-12 col-md-4 text-nowrap">
+                                                                    <div>top matches</div>
+                                                                    <div v-for="artist in match.matchedArtists" style="font-size: 14px; margin-right: -100%; margin-left: -100%;"
                                                                          :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
-                                                                        {{ artist }}
+                                                                        {{ artist.name }}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2967,17 +2967,35 @@ let app = new Vue({
                         //Time Range: Longterm(Years), Mediumterm (6months), shortterm (4weeks)
             let artists = [];
             let rank = 0;
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=49', headers)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    // for (let artist in data.items) if (!this.shortMap.has(data.items[artist].name)) this.shortMap.set(data.items[artist].name, rank++);
+                    for (let artist of data.items) if (!this.shortMap.has(artist)) this.shortMap.set(artist, rank++);
+                });
+            await fetch('https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50&offset=49', headers)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    // for (let artist in data.items) if (!this.shortMap.has(data.items[artist].name)) this.shortMap.set(data.items[artist].name, rank++);
+                    for (let artist of data.items) if (!this.shortMap.has(artist)) this.shortMap.set(artist, rank++);
+                });
+
+            rank = 0;
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=49', headers)
                 .then(response => response.json())
                 .then((data) => {
                     console.log(data);
-                    for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+                    // for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+                    for (let artist of data.items) if (!this.mediumMap.has(artist)) this.mediumMap.set(artist, rank++);
                 });
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50&offset=49', headers)
                 .then(response => response.json())
                 .then((data) => {
                     console.log(data);
-                    for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+                    // for (let artist in data.items) if (!this.mediumMap.has(data.items[artist].name)) this.mediumMap.set(data.items[artist].name, rank++);
+                    for (let artist of data.items) if (!this.mediumMap.has(artist)) this.mediumMap.set(artist, rank++);
                 });
             
             rank = 0;
@@ -2985,14 +3003,16 @@ let app = new Vue({
                 .then(response => response.json())
                 .then((data) => {
                     console.log(data);
-                    for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+                    // for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+                    for (let artist of data.items) if (!this.longMap.has(artist)) this.longMap.set(artist, rank++);
                 });
             await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=49', headers)
                 .then(response => response.json())
                 .then((data) => {
                     //Loading artists into a simple array
                     console.log(data);
-                    for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+                    // for (let artist in data.items) if (!this.longMap.has(data.items[artist].name)) this.longMap.set(data.items[artist].name, rank++);
+                    for (let artist of data.items) if (!this.longMap.has(artist)) this.longMap.set(artist, rank++);
                 });
             console.log('Done');
             
@@ -3004,30 +3024,78 @@ let app = new Vue({
                     this.festivals = data;
                 });
             console.log("Done");
-            console.log(this.festivals);
-
+            
+            console.log(this.shortMap);
             console.log(this.mediumMap);
             console.log(this.longMap);
 
             this.populateScoreMap();
         },
         populateScoreMap(){
+            // this.mediumMap.forEach((value, key) => {
+            //     this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value));
+            //     this.nameMap.set(key.toLowerCase(), key);
+            // });
+
+            // this.longMap.forEach((value, key) => {
+            //     if (!this.scoreMap.has(key.toLowerCase())) {
+            //         this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value) * 1/3);
+            //         this.nameMap.set(key.toLowerCase(), key);
+            //     }
+            //     else {
+            //         this.scoreMap.set(key.toLowerCase(), this.scoreMap.get(key.toLowerCase()) + this.scoringFunction(value) * 1/3);
+            //     } 
+            // });
+
+            // this.shortMap.forEach((value, key) => {
+            //     if (!this.scoreMap.has(key.toLowerCase())) {
+            //         this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value) * 2/3);
+            //         this.nameMap.set(key.toLowerCase(), key);
+            //     }
+            //     else {
+            //         this.scoreMap.set(key.toLowerCase(), this.scoreMap.get(key.toLowerCase()) + this.scoringFunction(value) * 1/2);
+            //     } 
+            // });
+
             this.mediumMap.forEach((value, key) => {
-                this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value));
-                this.nameMap.set(key.toLowerCase(), key);
+                key.score = this.scoringFunction(value);
+                this.scoreMap.set(key.name.toLowerCase(), key);
             });
 
             this.longMap.forEach((value, key) => {
-                if (!this.scoreMap.has(key.toLowerCase())) {
-                    this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value));
-                    this.nameMap.set(key.toLowerCase(), key);
+                if (!this.scoreMap.has(key.name.toLowerCase())) {
+                    key.score = this.scoringFunction(value) * 1/3;
+                    this.scoreMap.set(key.name.toLowerCase(), key);
                 }
-                else if (this.scoreMap.get(key.toLowerCase()) < this.scoringFunction(value) * 4/5) {
-                    this.scoreMap.set(key.toLowerCase(), this.scoringFunction(value) * 4/5);
+                else {
+                    let new_key = this.scoreMap.get(key.name.toLowerCase());
+                    new_key.score += this.scoringFunction(value) * 1/3;
+                    this.scoreMap.set(key.name.toLowerCase(), new_key);
+                } 
+            });
+
+            this.shortMap.forEach((value, key) => {
+                if (!this.scoreMap.has(key.name.toLowerCase())) {
+                    key.score = this.scoringFunction(value) * 2/3;
+                    this.scoreMap.set(key.name.toLowerCase(), key);
+                }
+                else {
+                    let new_key = this.scoreMap.get(key.name.toLowerCase());
+                    new_key.score += this.scoringFunction(value) * 2/3;
+                    this.scoreMap.set(key.name.toLowerCase(), new_key);
                 } 
             });
             
+            // this.scoreMap = new Map([...this.scoreMap.entries()].sort(function(a, b) { 
+            //     return a[1] > b[1] ? -1 : 1;
+            // }));
+
+            this.scoreMap = new Map([...this.scoreMap.entries()].sort(function(a, b) { 
+                return a[1].score > b[1].score ? -1 : 1;
+            }));
+
             console.log(this.scoreMap);
+            // console.log(this.nameMap)
 
             this.ready = true;
         },
@@ -3059,17 +3127,23 @@ let app = new Vue({
             console.log(filtered_festivals);
 
             let matches = [];
-            let bestMatch = {name : "", score: Number.MIN_VALUE, matchedArtists: []};
+            // let bestMatch = {name : "", score: Number.MIN_VALUE, matchedArtists: []};
             for(var fest of filtered_festivals){
                 let currentMatch = {name : fest.eventname.split(" - ")[0], score: 0, matchedArtists: [], artists: [], logo: fest.largeimageurl};
                 for(var art of fest.artists){
                     currentMatch.artists.push(art.name);
                     if(this.scoreMap.has(art.name.toLowerCase())){
-                        currentMatch.score += this.scoreMap.get(art.name.toLowerCase());
-                        currentMatch.matchedArtists.push(art.name);
+                        // currentMatch.score += this.scoreMap.get(art.name.toLowerCase());
+                        // currentMatch.matchedArtists.push(art.name);
+                        currentMatch.score += this.scoreMap.get(art.name.toLowerCase()).score;
+                        currentMatch.matchedArtists.push(this.scoreMap.get(art.name.toLowerCase()));
                     }
                 }
                 if(currentMatch.score > 0 && typeof matches.find((element) => {return element.name === fest.eventname.split(" - ")[0];}) === "undefined"){
+                    currentMatch.matchedArtists = currentMatch.matchedArtists.sort(function(a, b) { 
+                        return a.score > b.score ? -1 : 1;
+                    });
+                    console.log(currentMatch.matchedArtists);
                     matches.push(currentMatch);
                 }
             }
