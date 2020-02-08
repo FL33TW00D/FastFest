@@ -587,35 +587,6 @@ h6.title:after {
 85% { top: -264px; }
 }
 
-/* @-webkit-keyframes move {
-    0%  { top: 0px; }
-    20% { top: -50px; }
-    40% { top: -100px; }
-    60% { top: -150px; }
-    80% { top: -200px; }
-}
-@-moz-keyframes move {
-    0%  { top: 0px; }
-    20% { top: -50px; }
-    40% { top: -100px; }
-    60% { top: -150px; }
-    80% { top: -200px; }
-}
-@-o-keyframes move {
-    0%  { top: 0px; }
-    20% { top: -50px; }
-    40% { top: -100px; }
-    60% { top: -150px; }
-    80% { top: -200px; }
-}
-@keyframes move {
-    0%  { top: 0px; }
-    20% { top: -50px; }
-    40% { top: -100px; }
-    60% { top: -150px; }
-    80% { top: -200px; }
-} */
-
 
 /* WELCOME TEXT */
 
@@ -656,9 +627,13 @@ h6.title:after {
 
 #download-lineup-btn{
   font-size: 0.4rem;
-  bottom: -30px;
   position: absolute; 
   transform: translateX(-50%); 
   border-radius: 18px; 
   color:white;
+}
+
+ #download-lineup-btn:hover{ 
+    background-color:#969696 !important;
+  
 }

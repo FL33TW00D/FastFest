@@ -2832,7 +2832,7 @@
                                                 </div>
                                             </row>    
                                         </div>
-                                        <a @click="downloadLineup" class="btn btn-outline-light unselectable" role="button" style="position: absolute; 
+                                        <a @click="downloadLineup" id="download-lineup-btn" class="btn btn-outline-light unselectable" role="button" style="position: absolute; 
                                         bottom: -50px; transform: translateX(-50%); border-radius: 18px; color:white">
                                             Download your lineup!
                                         </a>
@@ -3292,8 +3292,8 @@ let app = new Vue({
             }
         },
         downloadLineup() {
-            window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: 1, allowTaint: false, useCORS: true, scale: 5}).then(canvas => {
-                this.saveAs(canvas.toDataURL(), 'fastfest.png');
+            window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: true, allowTaint: false, useCORS: true, scale: 2}).then(canvas => {
+                this.saveAs(canvas.toDataURL('image/jpg'), 'FastFest.png');
             }).catch((error) => {
                 console.log("ERROR SAVING FESTIVAL IMAGE", error)
             });
