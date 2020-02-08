@@ -40,7 +40,7 @@
 
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-     style="background-image: url('/veccycamp.png'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;" >
+     style="background-image: url('/veccycamp.jpg'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;" >
     <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
         <div id="brand-wrapper" v-if="authenticated !== null" style="z-index:200;">
             <div id="logo"></div>
@@ -3254,8 +3254,8 @@ let app = new Vue({
                 setTimeout(this.typeText, this.typingSpeed + 1000);
             }
         },
-        downloadLineup () {
-            window.html2canvas(this.$refs['capture'], { logging: true, letterRendering: 1, allowTaint: false, useCORS: true }).then(canvas => {
+        downloadLineup() {
+            window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: 1, allowTaint: false, useCORS: true, scale: 5}).then(canvas => {
                 this.saveAs(canvas.toDataURL(), 'fastfest.png');
             }).catch((error) => {
                 console.log("ERROR SAVING FESTIVAL IMAGE", error)
