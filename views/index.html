@@ -2811,8 +2811,8 @@
                             <div>
                                 <b-button id="show-btn" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
                                 <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
-                                    body-class="d-block share-body" ref="share">
-                                    <b-container fluid class="h-100" style="text-align:center;" >
+                                    body-class="d-block share-body p-0 m-0" >
+                                    <b-container fluid class="h-100 lineup-content pt-5" style="text-align:center;" ref="capture">
                                         <div style="position: relative; top: 40%; transform: translateY(-50%);">
                                             <h6 :data-heading="matches[0].name" class="unselectable title share">{{matches[0].name}}</h6>
                                             <row class="row mt-2">
@@ -2827,6 +2827,9 @@
                                                 </div>
                                             </row>
                                         </div>
+                                        <button @click="downloadLineup" style="position: absolute; bottom: -50px; transform: translateX(-50%)">
+                                            DOWNLOAD
+                                        </button>
                                     </b-container>
                                 </b-modal>
                             </div>
