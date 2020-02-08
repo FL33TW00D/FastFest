@@ -99,7 +99,7 @@ g.toggled circle {
 }
 
 .lineup-content {
-  background-image: url('../images/veccycamp-sq.jpg');
+  background-image: url('../images/veccycamp-ff.jpg');
   background-size: cover; 
   background-repeat: no-repeat; 
 }
@@ -239,6 +239,10 @@ g.toggled circle {
   #modal-matches{
     font-size: 1.1rem !important;
   }
+  #download-lineup-btn{
+    font-size: 0.6rem !important;
+    bottom: -50px !important;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
@@ -275,6 +279,11 @@ g.toggled circle {
   #modal-matches{
     font-size: 1.2rem !important;
   }
+
+  #download-lineup-btn{
+    font-size: 0.6rem !important;
+    bottom: -50px !important;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -294,6 +303,11 @@ g.toggled circle {
 
   #modal-matches{
     font-size: 1.8rem !important;
+  }
+
+  #download-lineup-btn{
+    font-size: 1rem !important;
+    bottom: -50px !important;
   }
 
 }
@@ -638,4 +652,13 @@ h6.title:after {
   background-repeat: no-repeat; 
   font-family: 'CoreCircus', sans-serif;
   margin: auto;
+}
+
+#download-lineup-btn{
+  font-size: 0.4rem;
+  bottom: -30px;
+  position: absolute; 
+  transform: translateX(-50%); 
+  border-radius: 18px; 
+  color:white;
 }
