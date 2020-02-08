@@ -196,6 +196,13 @@ g.toggled circle {
   cursor: pointer;
 }
 
+#share {
+  position: absolute; 
+  top: calc(50% - 65px); 
+  right: 15px; 
+  transform: translate(-50%);
+}
+
 #more {
   position: absolute; 
   bottom: 32px; 
@@ -299,7 +306,7 @@ g.toggled circle {
   }
 
   h2 {
-    font-size: 1.8rem !important;
+    font-size: 2rem !important;
   }
 
   h3 {
@@ -350,14 +357,6 @@ g.toggled circle {
   #app #display-picture .shrink-enter {
     width: 200px !important;
   }  
-}
-
-/* Large devices (desktops, 992px and below) */
-@media (max-width: 1200px) and (orientation: landscape) {
-  #app h6.title {
-    font-size: 55px !important;
-    max-width: 80%;
-  }
 
   #app #app-container {
     height: calc(100% - 20px); 
@@ -371,13 +370,25 @@ g.toggled circle {
   }
 
   #result-container.show-more {
-    top:calc(-100% + 8px) !important;
+    top:calc(-100% + 23px) !important;
+  }
+
+  #show-more, #share {
+    top: calc(50% - 75px); 
+  }
+}
+
+/* Large devices (desktops, 992px and below) */
+/* @media (max-width: 1200px) and (orientation: landscape) {
+  #app h6.title {
+    font-size: 55px !important;
+    max-width: 80%;
   }
 
   /* #app #show-more {
     top: calc(50% - 80px); 
-  } */
-}
+  } 
+} */
 
 
 /* ******************************************************************* */

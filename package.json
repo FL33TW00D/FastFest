@@ -24,7 +24,8 @@
     "prettier": "^1.19.1",
     "pug": "^2.0.4",
     "querystring": "^0.2.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "vue2-touch-events": "^2.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

@@ -20,10 +20,10 @@
     <!-- <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
-    <script src="https://unpkg.com/http-vue-loader"></script> 
+    <!-- <script src="https://unpkg.com/http-vue-loader"></script>  -->
     <script type="text/javascript" src="env.js"></script>
     <script src="html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha256-c9vxcXyAG4paArQG3xk6DjyW/9aHxai2ef9RpMWO44A=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha256-c9vxcXyAG4paArQG3xk6DjyW/9aHxai2ef9RpMWO44A=" crossorigin="anonymous"></script> -->
     <!-- GOOGLE ADWORDS -->
     <script data-ad-client="ca-pub-9268625376425767" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -2791,25 +2791,30 @@
                 <div v-else-if="page === total_pages" class="col-12">
                     <div class="mx-auto text-center h-100">
                         <img v-if="calculating" src="/blocks.gif" style="max-width: 30%; max-height: 30%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        <div v-if="matches.length > 0" id="result-container" :class="[show_more ? 'show-more' : '']" style="font-family: 'CoreCircus', sans-serif;">
-                            <h6 :data-heading="matches[0].name" class="unselectable title">
-                                {{matches[0].name}}
-                            </h6>
-                            <div class="row mx-sm-3 mx-md-5 mt-3 mt-lg-4 mt-lg-5">
-                                <div class="col-12 col-lg-10 offset-lg-1 px-5 pb-lg-2 pb-xl-3" style="color: #4ad9db;">
-                                    <h3>Featuring artists you love...</h3>
-                                    <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
+                        <div v-if="matches.length > 0" id="result-container" class="pt-1 pt-md-2 pt-lg-3 pt-xl-4" :class="[show_more ? 'show-more' : '']" style="font-family: 'CoreCircus', sans-serif;">
+                            <div style="height: calc(50% - 100px);">
+                                <div style="position: relative; top: 50%; transform: translateY(-50%);">
+                                    <h6 :data-heading="matches[0].name" class="unselectable title">
+                                    {{matches[0].name}}
+                                </h6>
+                                <div class="row mx-sm-3 mx-md-5 mt-3 mt-lg-4 mt-lg-5">
+                                    <div class="col-12 col-lg-10 offset-lg-1 px-5 pb-lg-2 pb-xl-3" style="color: #4ad9db;">
+                                        <h3>Featuring artists you love...</h3>
+                                        <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
+                                    </div>
+                                    <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)" 
+                                         class="col-12 mt-2 mb-1 mb-sm-2" 
+                                         :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}"
+                                         :class="[matches[0].matchedArtists.slice(0, 6).length % 2 !== 0 && index === 0 ? '' : 'col-sm-6']">
+                                        <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</h2>
+                                    </div>
                                 </div>
-                                <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)" 
-                                     class="col-12 col-sm-6 col-lg-5 mt-2 mb-1 mb-sm-2" 
-                                     :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}"
-                                     :class="[index % 2 === 0 ? 'offset-lg-1' : '']">
-                                    <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</h2>
                                 </div>
+                                
                             </div>
                             <!-- MODAL TESTING -->
-                            <div>
-                                <b-button id="show-btn" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
+                            <div id="share">
+                                <b-button id="show-btn" size="sm" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
                                 <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
                                     body-class="d-block share-body p-0 m-0" >
                                     <b-container fluid class="h-100 lineup-content pt-5" style="text-align:center;" ref="capture">
@@ -2838,6 +2843,8 @@
                             <span id="show-more" @click="showMore" :class="[show_more ? 'show-more' : '']">
                                 <i class="fas fa-chevron-down fa-2x" :class="[show_more ? '' : 'fa-rotate-180']"></i>
                             </span>
+                            <!-- <span style="font-size: 10px; position: relative; top: 25px; left: -70px">more info</span> -->
+                            
                             <div id="more">
                                 <div class="row mx-1 mx-sm-3 mx-md-5">
                                     <div class="col-12 col-md-8 col-xl-6 offset-md-2 offset-xl-3 mt-3 px-3" style="color: #f98ca4;">
@@ -2853,20 +2860,52 @@
                                                     <b-card-header header-tag="header" class="other-festival-header p-1" role="tab">
                                                         <b-button block href="#" v-b-toggle="match.name" variant="dark"
                                                                   :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
-                                                                  <img :src="match.logo" style="height: 100%;">
-                                                            {{ match.score | round }} {{ match.name }}
+                                                                  <img :src="match.skiddle.largeimageurl" style="height: 100%;">
+                                                            {{ match.name }}
                                                         </b-button>
                                                     </b-card-header>
                                                     <b-collapse :id="match.name" accordion="other-festivals" role="tabpanel">
                                                         <b-card-body>
                                                             <div class="row">
-                                                                <div class="col-12 col-md-6 col-lg-8"></div>
-                                                                <div class="col-12 col-md-6 col-lg-4 text-nowrap">
-                                                                    <div>top matches</div>
+                                                                <div class="col-12 text-center mb-2" style="font-size: 25px;" :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
+                                                                    {{ match.name }}
+                                                                </div>
+                                                                <div class="col-12 col-md-7 col-lg-8 order-2 mt-3">
+                                                                    <div class="row">
+                                                                        <div class="col-12 text-center text-md-left">
+                                                                            <div>description</div>
+                                                                            <div style="font-size: 14px;" :style="{color: pastel_colours[(matches.length + index + 1) % pastel_colours.length]}">
+                                                                                {{ match.skiddle.description | apostrify }}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 mt-3">
+                                                                            <div class="row">
+                                                                                <div class="col-6 text-center text-md-left">
+                                                                                    <div>location</div>
+                                                                                    <div style="font-size: 14px;" :style="{color: pastel_colours[(matches.length + index + 2) % pastel_colours.length]}">
+                                                                                        {{ match.skiddle.venue.town + ',' }} {{ match.skiddle.venue.country }}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6 text-center text-md-left">
+                                                                                    <div>date</div>
+                                                                                    <div style="font-size: 14px;" :style="{color: pastel_colours[(matches.length + index + 3) % pastel_colours.length]}">
+                                                                                        {{ match.skiddle.date }}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="order-1 order-md-3 col-12 col-md-5 col-lg-4 text-nowrap my-auto text--center mt-3">
+                                                                    <div>your matches</div>
                                                                     <div v-for="artist in match.matchedArtists" style="font-size: 14px; margin-right: -100%; margin-left: -100%;"
-                                                                         :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
+                                                                         :style="{color: pastel_colours[(matches.length + index + 4) % pastel_colours.length]}">
                                                                         {{ artist.name }}
                                                                     </div>
+                                                                </div>
+                                                                <div class="col-12 order-12 text-center mt-3">
+                                                                    <!-- <div>tickets</div> -->
+                                                                    <b-button size="sm" :href="match.skiddle.link + '?sktag=14886'" style="background-color: #343a40; border: none;" :style="{color: pastel_colours[(matches.length + index + 5) % pastel_colours.length]}">tickets</b-button>
                                                                 </div>
                                                             </div>
                                                         </b-card-body>
@@ -3164,9 +3203,9 @@ let app = new Vue({
 
             let matches = [];
             for(var fest of filtered_festivals){
-                let currentMatch = {name : fest.eventname.split(" - ")[0], score: 0, matchedArtists: [], artists: [], logo: fest.largeimageurl};
+                let currentMatch = {name : fest.eventname.split(" - ")[0], score: 0, matchedArtists: [], skiddle: fest};
                 for(var art of fest.artists){
-                    currentMatch.artists.push(art.name);
+                    // currentMatch.artists.push(art.name);
                     if(this.scoreMap.has(art.name.toLowerCase())){
                         currentMatch.score += this.scoreMap.get(art.name.toLowerCase()).score;
                         currentMatch.matchedArtists.push(this.scoreMap.get(art.name.toLowerCase()));
@@ -3301,6 +3340,9 @@ let app = new Vue({
     filters: {
         round: function (value) {
             return Math.round(value);
+        },
+        apostrify: function (value) {
+            return value.replace("&#8217;", "'")
         }
     },
     watch: {
