@@ -617,35 +617,3 @@ h6.title:after {
   50% {color: transparent;}
   99% {color: transparent;}
 }
-
-
-/* TESTING MODAL */
-
-/* .lineupModal > div {
-
-} */
-
-.lineupModal > .modal-dialog > .modal-content {
-  height:0;
-  width:80%;
-  padding-bottom:80%;
-  background-image: url('../images/veccycamp-sq.jpg');
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  font-family: 'CoreCircus', sans-serif;
-  margin: auto;
-}
-
-.body-clazz{
-  min-height: 100%;
-}
-
-#bconty{
-  text-align:center;   
-  background-image: url('../images/veccycamp-sq.jpg');
-  background-size: cover; 
-  background-repeat: no-repeat;
-  min-height: 100%;
-  height:auto !important; /* cross-browser */
-  height: 100%; 
-}
