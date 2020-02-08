@@ -592,21 +592,34 @@ h6:after {
 /* TESTING MODAL */
 
 .lineupModal{
-  
+
+
 }
 
 .lineupModal > div {
-
 }
 
 .lineupModal > .modal-dialog > .modal-content {
   height:0;
   width:80%;
   padding-bottom:80%;
-  background-image: url('/veccycamp-sq.jpg');
-  background-size:cover; 
+  background-image: url('veccycamp-sq.jpg');
+  background-size: cover; 
   background-repeat: no-repeat; 
   font-family: 'CoreCircus', sans-serif;
   margin: auto;
 }
 
+.body-clazz{
+  min-height: 100%;
+}
+
+#bconty{
+  text-align:center;   
+  background-image: url('veccycamp-sq.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  min-height: 100%;
+  height:auto !important; /* cross-browser */
+  height: 100%; 
+}

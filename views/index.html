@@ -19,6 +19,8 @@
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> 
     <script type="text/javascript" src="env.js"></script>
+    <script src="html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha256-c9vxcXyAG4paArQG3xk6DjyW/9aHxai2ef9RpMWO44A=" crossorigin="anonymous"></script>
     <!-- GOOGLE ADWORDS -->
     <script data-ad-client="ca-pub-9268625376425767" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -30,6 +32,7 @@
     <link rel="icon" href="/favicon-180.png" sizes="180x180">
     <link rel="icon" href="/favicon-192.png" sizes="192x192">
     <link rel="icon" href="/favicon-196.png" sizes="196x196">
+
 </head>
 
 <body>
@@ -2805,26 +2808,28 @@
                             <div>
                                 <b-button id="show-btn" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
                                 <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
-                                    body-class="p-0 m-0">
-                                    <b-container fluid style="text-align:center;">
+                                    body-class="p-0 m-0 body-clazz h-100">
+                                    <b-container fluid id="bconty" ref="capture">
                                         <h6 :data-heading="matches[0].name" class="unselectable">
                                             {{matches[0].name}}
                                         </h6>
                                         <b-row>
                                             <b-col>
-
+                                                
                                             </b-col>
                                             <div class="col-12 px-5 mt-2" style="color: #4ad9db;">
                                                 <h3>Featuring artists you love...</h3>
                                                 <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
                                             </div>
                                             <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)"
-                                                class="col-6 col-sm-6 col-lg-5"
-                                                :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}"
-                                                :class="[index % 2 === 0 ? 'offset-lg-1' : '']">
+                                                class="col-6 col-sm-6"
+                                                :style="{color: modal_pastel_colours[(matches.length + index) % modal_pastel_colours.length]}">
                                                 <span id="modal-matches" style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</span>
                                             </div>
                                         </b-row>
+                                        <button @click="downloadLineUp">
+                                            Download
+                                          </button>s
                                     </b-container>
                                 </b-modal>
                             </div>
@@ -2969,6 +2974,7 @@ let app = new Vue({
             countrySet: new Set(),
 
             pastel_colours: ['#f5b10b', '#65f283', '#4ad9db', '#f98ca4', '#c7ceea', '#129a7d'],
+            modal_pastel_colours: ['#f5b10b', '#65f283', '#4ad9db', '#f98ca4', '#c7ceea'],
 
             //Typing Animation Data
             typeValue: '',
@@ -3248,6 +3254,25 @@ let app = new Vue({
 
                 setTimeout(this.typeText, this.typingSpeed + 1000);
             }
+        },
+        downloadLineup () {
+            window.html2canvas(this.$refs['capture'], { logging: true, letterRendering: 1, allowTaint: false, useCORS: true }).then(canvas => {
+                this.saveAs(canvas.toDataURL(), 'fastfest.png');
+            }).catch((error) => {
+                console.log("ERROR SAVING FESTIVAL IMAGE", error)
+            });
+        },
+        saveAs(uri, filename) {
+        var link = document.createElement('a');
+        if (typeof link.download === 'string') {
+            link.href = uri;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            window.open(uri);
+        }
         }
     },
     created() {
