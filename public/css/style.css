@@ -21,7 +21,7 @@ h3 {
 }
 
 h4 {
-  font-size: 0.5rem !important;
+  font-size: 0.6rem !important;
 }
 
 circle {
@@ -96,11 +96,9 @@ g.toggled circle {
 #lineup-modal .share-body {
   position: absolute;
   height: 100%;
-
-
 }
 
-.lineup-content{
+.lineup-content {
   background-image: url('../images/veccycamp-sq.jpg');
   background-size: cover; 
   background-repeat: no-repeat; 
@@ -198,6 +196,13 @@ g.toggled circle {
   cursor: pointer;
 }
 
+#share {
+  position: absolute; 
+  top: calc(50% - 65px); 
+  right: 15px; 
+  transform: translate(-50%);
+}
+
 #more {
   position: absolute; 
   bottom: 32px; 
@@ -228,7 +233,7 @@ g.toggled circle {
   }
 
   #lineup-modal h6{
-    font-size: 28px !important;
+    font-size: 35px !important;
   }
 
   #modal-matches{
@@ -301,7 +306,7 @@ g.toggled circle {
   }
 
   h2 {
-    font-size: 1.8rem !important;
+    font-size: 2rem !important;
   }
 
   h3 {
@@ -329,11 +334,18 @@ g.toggled circle {
 /* Media queries to target mobile devices in landscape */
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px) and (orientation: landscape) {
-
+  #app #app-container #result-container h6.title {
+    font-size: 30px !important;
+    max-width: 80% !important;
+  }
 }
 
 /* Small devices (desktops, 768px and below) */
 @media (max-width: 768px) and (orientation: landscape) {
+  #app #app-container h6.title {
+    font-size: 40px !important;
+    max-width: 80% !important;
+  }
 }
 
 /* Medium devices (desktops, 992px and below) */
@@ -342,25 +354,12 @@ g.toggled circle {
     font-size: 1.5rem !important;
   }
 
-  #app h6 {
-    font-size: 30px !important;
-    max-width: 80% !important;
-  }
-
   #app #display-picture .shrink-enter {
     width: 200px !important;
   }  
-}
-
-/* Large devices (desktops, 992px and below) */
-@media (max-width: 1200px) and (orientation: landscape) {
-  #app h6 {
-    font-size: 60px !important;
-    max-width: 70%;
-  }
 
   #app #app-container {
-    height:calc(100% - 20px); 
+    height: calc(100% - 20px); 
     margin-top: 10px;
   }
 
@@ -371,13 +370,25 @@ g.toggled circle {
   }
 
   #result-container.show-more {
-    top:calc(-100% + 8px) !important;
+    top:calc(-100% + 23px) !important;
+  }
+
+  #show-more, #share {
+    top: calc(50% - 75px); 
+  }
+}
+
+/* Large devices (desktops, 992px and below) */
+/* @media (max-width: 1200px) and (orientation: landscape) {
+  #app h6.title {
+    font-size: 55px !important;
+    max-width: 80%;
   }
 
   /* #app #show-more {
     top: calc(50% - 80px); 
-  } */
-}
+  } 
+} */
 
 
 /* ******************************************************************* */
