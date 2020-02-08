@@ -2818,6 +2818,7 @@
                                 <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
                                     body-class="d-block share-body p-0 m-0" >
                                     <b-container fluid class="h-100 lineup-content pt-5" style="text-align:center;" ref="capture">
+                                        <img src="/veccycamp-sq.jpg" style="position:absolute; left:0; top: 0; width: 100%; height:100%;" />
                                         <div style="position: relative; top: 40%; transform: translateY(-50%);">
                                             <h6 :data-heading="matches[0].name" class="unselectable title share">{{matches[0].name}}</h6>
                                             <row class="row mt-2">
@@ -2858,7 +2859,7 @@
                                                     <b-card-header header-tag="header" class="other-festival-header p-1" role="tab">
                                                         <b-button block href="#" v-b-toggle="match.name" variant="dark"
                                                                   :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
-                                                                  <img :src="match.skiddle.largeimageurl" style="height: 100%;">
+                                                                  <img :src="match.skiddle.largeimageurl" style="height: 100%; max-width: 68px;">
                                                             {{ match.name }}
                                                         </b-button>
                                                     </b-card-header>
@@ -3088,7 +3089,7 @@ let app = new Vue({
             
             [short1, short2, medium1, medium2, long1, long2] = data;
 
-            for (let top_artists of [{ data: [...short1.items, ...short2.items], weight: 2/3 }, 
+            for (let top_artists of [{ data: [...short1.items, ...short2.items], weight: 1/2 }, 
                                      { data: [...medium1.items, ...medium2.items], weight: 1 }, 
                                      { data: [...long1.items, ...long2.items], weight: 1/3 }]) {
                 rank = 0;
