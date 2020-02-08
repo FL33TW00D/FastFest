@@ -10,11 +10,14 @@
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <link rel="stylesheet" href="css/brands.min.css"/>
+    <link rel="stylesheet" href="css/solid.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
-    <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> 
@@ -34,7 +37,7 @@
 
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-     style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
+     style="background-image: url('/veccycamp.png'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;" >
     <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
         <div id="brand-wrapper" v-if="authenticated !== null" style="z-index:200;">
             <div id="logo"></div>

@@ -113,7 +113,7 @@ g.toggled circle {
   background-size:80px; 
   min-height:80px; 
   background-repeat: no-repeat; 
-  background-image: url(V-Logo.png)
+  background-image: url(../V-Logo.png)
 }
 
 #brand-wrapper {
