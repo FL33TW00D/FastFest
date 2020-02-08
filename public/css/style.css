@@ -98,12 +98,6 @@ g.toggled circle {
   height: 100%;
 }
 
-.lineup-content {
-  background-image: url('../images/veccycamp-sq.jpg');
-  background-size: cover; 
-  background-repeat: no-repeat; 
-}
-
 
 /* ******************************************************************* */
 /* Targeting by ID */
@@ -633,9 +627,6 @@ h6.title:after {
   height:0;
   width:80%;
   padding-bottom:80%;
-  background-image: url('../images/veccycamp-sq.jpg');
-  background-size: cover; 
-  background-repeat: no-repeat; 
   font-family: 'CoreCircus', sans-serif;
   margin: auto;
 }
