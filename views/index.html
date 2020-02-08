@@ -10,11 +10,14 @@
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <link rel="stylesheet" href="css/brands.min.css"/>
+    <link rel="stylesheet" href="css/solid.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
-    <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/4dfe369057.js" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> 
@@ -37,7 +40,7 @@
 
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-     style="background-image: url('/veccycamp.png'); background-size: auto 100%; color: white;" >
+     style="background-image: url('/veccycamp.png'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;" >
     <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
         <div id="brand-wrapper" v-if="authenticated !== null" style="z-index:200;">
             <div id="logo"></div>
@@ -2781,7 +2784,7 @@
                                     <circle class="st0" cx="371.7" cy="151" r="1.9"/>
                                 </g>
                             </svg>
-                            <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%);"><h4>{{ mapTitle }}</h4></div>
+                            <div style="position: absolute; bottom: 0px; left: 50%; transform: translate(-50%);"><h3>{{ mapTitle }}</h3></div>
                         </transition>
                     </div>
                 </div>
@@ -2789,7 +2792,7 @@
                     <div class="mx-auto text-center h-100">
                         <img v-if="calculating" src="/blocks.gif" style="max-width: 30%; max-height: 30%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         <div v-if="matches.length > 0" id="result-container" :class="[show_more ? 'show-more' : '']" style="font-family: 'CoreCircus', sans-serif;">
-                            <h6 :data-heading="matches[0].name" class="unselectable">
+                            <h6 :data-heading="matches[0].name" class="unselectable title">
                                 {{matches[0].name}}
                             </h6>
                             <div class="row mx-sm-3 mx-md-5 mt-3 mt-lg-4 mt-lg-5">
@@ -2808,28 +2811,22 @@
                             <div>
                                 <b-button id="show-btn" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
                                 <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
-                                    body-class="p-0 m-0 body-clazz h-100">
-                                    <b-container fluid id="bconty" ref="capture">
-                                        <h6 :data-heading="matches[0].name" class="unselectable">
-                                            {{matches[0].name}}
-                                        </h6>
-                                        <b-row>
-                                            <b-col>
-                                                
-                                            </b-col>
-                                            <div class="col-12 px-5 mt-2" style="color: #4ad9db;">
-                                                <h3>Featuring artists you love...</h3>
-                                                <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
-                                            </div>
-                                            <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)"
-                                                class="col-6 col-sm-6"
-                                                :style="{color: modal_pastel_colours[(matches.length + index) % modal_pastel_colours.length]}">
-                                                <span id="modal-matches" style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</span>
-                                            </div>
-                                        </b-row>
-                                        <button @click="downloadLineUp">
-                                            Download
-                                          </button>s
+                                    body-class="d-block share-body" ref="share">
+                                    <b-container fluid class="h-100" style="text-align:center;" >
+                                        <div style="position: relative; top: 40%; transform: translateY(-50%);">
+                                            <h6 :data-heading="matches[0].name" class="unselectable title share">{{matches[0].name}}</h6>
+                                            <row class="row mt-2">
+                                                <div class="col-12 px-5 mt-2" style="color: #4ad9db;">
+                                                    <h4>Featuring artists I love...</h4>
+                                                    <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
+                                                </div>
+                                                <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)"
+                                                    class="col-12"
+                                                    :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}">
+                                                    <span id="modal-matches" style="font-family: 'CoreCircus', sans-serif;"><h3>{{ match.name }}</h3></span>
+                                                </div>
+                                            </row>
+                                        </div>
                                     </b-container>
                                 </b-modal>
                             </div>
@@ -2973,8 +2970,7 @@ let app = new Vue({
             SA: new Set(),
             countrySet: new Set(),
 
-            pastel_colours: ['#f5b10b', '#65f283', '#4ad9db', '#f98ca4', '#c7ceea', '#129a7d'],
-            modal_pastel_colours: ['#f5b10b', '#65f283', '#4ad9db', '#f98ca4', '#c7ceea'],
+            pastel_colours: ['#f5b10b', '#65f283', '#4ad9db', '#f98ca4', '#c7ceea', '#fff97b'],
 
             //Typing Animation Data
             typeValue: '',

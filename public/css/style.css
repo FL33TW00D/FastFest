@@ -17,11 +17,11 @@ h2 {
 }
 
 h3 {
-  font-size: 0.75rem !important;
+  font-size: 0.8rem !important;
 }
 
 h4 {
-  font-size: 1rem !important;
+  font-size: 0.5rem !important;
 }
 
 circle {
@@ -93,6 +93,10 @@ g.toggled circle {
   transform: translateY(25px);
 }
 
+#lineup-modal .share-body {
+  position: absolute;
+  height: 100%;
+}
 /* ******************************************************************* */
 /* Targeting by ID */
 #app {
@@ -113,7 +117,7 @@ g.toggled circle {
   background-size:80px; 
   min-height:80px; 
   background-repeat: no-repeat; 
-  background-image: url(V-Logo.png)
+  background-image: url(../V-Logo.png)
 }
 
 #brand-wrapper {
@@ -196,18 +200,29 @@ g.toggled circle {
   overflow-x: hidden;
 }
 
+#lineup-modal h6 {
+  font-size: 25px !important;
+}
 
 /* ******************************************************************* */
 /* Media queries to target different sized devices */
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  #app h6 {
+  #app h6.title {
     font-size: 40px !important;
     max-width: 90%;
   }
 
   #display-picture {
     width: 70px;
+  }
+
+  #lineup-modal h6{
+    font-size: 28px !important;
+  }
+
+  #modal-matches{
+    font-size: 1.1rem !important;
   }
 }
 
@@ -222,14 +237,14 @@ g.toggled circle {
   }
 
   h3 {
-    font-size: 1rem !important;
+    font-size: 1.2rem !important;
   }
 
   h4 {
-    font-size: 1.5rem !important;
+    font-size: 0.75rem !important;
   }
 
-  #app h6 {
+  #app h6.title {
     font-size: 40px !important;
     max-width: 60%;
   }
@@ -241,14 +256,15 @@ g.toggled circle {
   #lineup-modal h6{
     font-size: 30px !important;
   }
+
   #modal-matches{
-    font-size: 1.2rem !important;;
+    font-size: 1.2rem !important;
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  #app h6 {
+  #app h6.title {
     font-size: 55px !important;
   }
 
@@ -269,7 +285,7 @@ g.toggled circle {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  #app h6 {
+  #app h6.title {
     font-size: 65px !important;
     max-width: 60%;
   }
@@ -279,7 +295,11 @@ g.toggled circle {
   }
 
   h3 {
-    font-size: 1.3rem !important;
+    font-size: 1.5rem !important;
+  }
+
+  h4 {
+    font-size: 1rem !important;
   }
 
   #display-picture {
@@ -289,7 +309,7 @@ g.toggled circle {
 
 /* XXL devices (extra large desktops, 1500px and up) */
 @media (min-width: 1500px) {
-  #app h6 {
+  #app h6.title {
     font-size: 80px !important;
   }
 }
@@ -374,7 +394,7 @@ g.toggled circle {
 
 /* ******************************************************************* */
 /* Final screen text effect copied from Mandy Michael's CodePen  */
-h6 {
+h6.title {
   max-width: 100%;
   font-family: "CoreCircus", sans-serif;
   text-transform: uppercase;
@@ -384,14 +404,14 @@ h6 {
   margin: 0;
   top: 5px;
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  -webkit-transform: translate(-51%);
+          transform: translate(-51%);
   position: relative;
   color: #f98ca4;
   text-shadow: -1px -1px 0 #6e1f58, 1px -1px 0 #6e1f58, -1px 1px 0 #6e1f58, 1px 1px 0 #6e1f58, 1px 0px 0px #65f283, 0px 1px 0px #65f283, 2px 1px 0px #65f283, 1px 2px 0px #65f283, 3px 2px 0px #65f283, 2px 3px 0px #65f283, 4px 3px 0px #65f283, 3px 4px 0px #65f283, 5px 4px 0px #65f283, 3px 5px 0px #6e1f58, 6px 5px 0px #6e1f58, -1px 2px 0 black, 0 3px 0 #6e1f58, 1px 4px 0 #6e1f58, 2px 5px 0px #6e1f58, 2px -1px 0 #6e1f58, 3px 0 0 #6e1f58, 4px 1px 0 #6e1f58, 5px 2px 0px #6e1f58, 6px 3px 0 #6e1f58, 7px 4px 0 #6e1f58;
 }
 
-h6:after, h6:before {
+h6.title:after, h6.title:before {
   content: attr(data-heading);
   position: absolute;
   overflow: hidden;
@@ -401,13 +421,13 @@ h6:after, h6:before {
   z-index: 5;
 }
 
-h6:before {
+h6.title:before {
   text-shadow: -1px -1px 0 #9e132c, 1px -1px 0 #9e132c, -1px 1px 0 #9e132c, 1px 1px 0 #9e132c, 1px 0px 0px #f5b10b, 0px 1px 0px #f5b10b, 2px 1px 0px #f5b10b, 1px 2px 0px #f5b10b, 3px 2px 0px #f5b10b, 2px 3px 0px #f5b10b, 4px 3px 0px #f5b10b, 3px 4px 0px #f5b10b, 5px 4px 0px #f5b10b, 3px 5px 0px #9e132c, 6px 5px 0px #9e132c, -1px 2px 0 black, 0 3px 0 #9e132c, 1px 4px 0 #9e132c, 2px 5px 0px #9e132c, 2px -1px 0 #9e132c, 3px 0 0 #2f3e9c, 4px 1px 0 #9e132c, 5px 2px 0px #9e132c, 6px 3px 0 #9e132c, 7px 4px 0 #9e132c;
   color: #65f283;
   height: 66%;
 }
 
-h6:after {
+h6.title:after {
   height: 33%;
   color: #4ad9db;
   text-shadow: -1px -1px 0 #2f3e9c, 1px -1px 0 #2f3e9c, -1px 1px 0 #2f3e9c, 1px 1px 0 #2f3e9c, 1px 0px 0px #f98ca4, 0px 1px 0px #f98ca4, 2px 1px 0px #f98ca4, 1px 2px 0px #f98ca4, 3px 2px 0px #f98ca4, 2px 3px 0px #f98ca4, 4px 3px 0px #f98ca4, 3px 4px 0px #f98ca4, 5px 4px 0px #f98ca4, 3px 5px 0px #2f3e9c, 6px 5px 0px #2f3e9c, -1px 2px 0 black, 0 3px 0 #2f3e9c, 1px 4px 0 #2f3e9c, 2px 5px 0px #2f3e9c, 2px -1px 0 #2f3e9c, 3px 0 0 #2f3e9c, 4px 1px 0 #2f3e9c, 5px 2px 0px #2f3e9c, 6px 3px 0 #2f3e9c, 7px 4px 0 #2f3e9c;
@@ -591,13 +611,9 @@ h6:after {
 
 /* TESTING MODAL */
 
-.lineupModal{
+/* .lineupModal > div {
 
-
-}
-
-.lineupModal > div {
-}
+} */
 
 .lineupModal > .modal-dialog > .modal-content {
   height:0;
