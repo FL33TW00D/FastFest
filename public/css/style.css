@@ -235,7 +235,7 @@ g.toggled circle {
   }
   #download-lineup-btn{
     font-size: 0.6rem !important;
-    bottom: -50px !important;
+    bottom: -40px !important;
   }
 }
 
@@ -276,7 +276,7 @@ g.toggled circle {
 
   #download-lineup-btn{
     font-size: 0.6rem !important;
-    bottom: -50px !important;
+    bottom: -40px !important;
   }
 }
 
@@ -619,12 +619,14 @@ h6.title:after {
 #download-lineup-btn{
   font-size: 0.4rem;
   position: absolute; 
+  bottom: -30px;
   transform: translateX(-50%); 
   border-radius: 18px; 
   color:white;
+  max-width: 500px;
 }
 
- #download-lineup-btn:hover{ 
-    background-color:#969696 !important;
-  
+#download-lineup-btn:hover{ 
+  background-color:#969696 !important;
+  cursor: pointer;
 }
