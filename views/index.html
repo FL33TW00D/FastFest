@@ -3293,8 +3293,8 @@ let app = new Vue({
             }
         },
         downloadLineup() {
-            window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: true, allowTaint: false, useCORS: true, scale: 2}).then(canvas => {
-                this.saveAs(canvas.toDataURL('image/jpg'), 'FastFest.png');
+            window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: true, allowTaint: false, useCORS: true, scale: 2, backgroundColor: null}).then(canvas => {
+                this.saveAs(canvas.toDataURL('image/png'), 'FastFest.png');
             }).catch((error) => {
                 console.log("ERROR SAVING FESTIVAL IMAGE", error)
             });
