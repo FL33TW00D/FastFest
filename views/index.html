@@ -2804,6 +2804,35 @@
                                     <h2 style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</h2>
                                 </div>
                             </div>
+                            <!-- MODAL TESTING -->
+                            <div>
+                                <b-button id="show-btn" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
+                                <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
+                                    body-class="p-0 m-0">
+                                    <b-container fluid style="text-align:center;">
+                                        <h6 :data-heading="matches[0].name" class="unselectable">
+                                            {{matches[0].name}}
+                                        </h6>
+                                        <b-row>
+                                            <b-col>
+
+                                            </b-col>
+                                            <div class="col-12 px-5 mt-2" style="color: #4ad9db;">
+                                                <h3>Featuring artists you love...</h3>
+                                                <hr class="d-block" style="height:1px; border-top: 1px solid#f5b10b; margin: 0 0 10px; padding: 0;">
+                                            </div>
+                                            <div v-for="(match, index) in matches[0].matchedArtists.slice(0, 6)"
+                                                class="col-6 col-sm-6 col-lg-5"
+                                                :style="{color: pastel_colours[(matches.length + index) % pastel_colours.length]}"
+                                                :class="[index % 2 === 0 ? 'offset-lg-1' : '']">
+                                                <span id="modal-matches" style="font-family: 'CoreCircus', sans-serif;">{{ match.name }}</span>
+                                            </div>
+                                        </b-row>
+                                    </b-container>
+                                </b-modal>
+                            </div>
+
+                            <!-- END OF MODAL TESTING -->
                             <span id="show-more" @click="showMore" :class="[show_more ? 'show-more' : '']">
                                 <i class="fas fa-chevron-down fa-2x" :class="[show_more ? '' : 'fa-rotate-180']"></i>
                             </span>
@@ -2953,7 +2982,8 @@ let app = new Vue({
             newTextDelay: 2000,
             typeArrayIndex: 0,
             charIndex: 0,
-            activeColor: '#f5b10b'
+
+            lineupModal: ['lineupModal']
         }
     },
     methods: {
