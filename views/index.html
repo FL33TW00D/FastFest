@@ -2790,7 +2790,7 @@
                 </div>
                 <div v-else-if="page === total_pages" class="col-12">
                     <div class="mx-auto text-center h-100">
-                        <img v-if="calculating" src="/blocks.gif" style="max-width: 30%; max-height: 30%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <img v-if="calculating" src="/blocks.gif" style="max-width: 15%; max-height: 15%; opacity: 0.8; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         <div v-if="matches.length > 0" id="result-container" class="pt-1 pt-md-2 pt-lg-3 pt-xl-4" :class="[show_more ? 'show-more' : '']" style="font-family: 'CoreCircus', sans-serif;">
                             <div style="height: calc(50% - 100px);">
                                 <div style="position: relative; top: 50%; transform: translateY(-50%);">
@@ -2833,9 +2833,9 @@
                                                 </div>
                                             </row>    
                                         </div>
-                                        <a @click="downloadLineup" id="download-lineup-btn" class="btn btn-outline-light unselectable" role="button">
-                                            Download your lineup!
-                                        </a>
+                                            <a @click="downloadLineup" id="download-lineup-btn" class="btn btn-block btn-outline-light unselectable" role="button">
+                                                Download your lineup!
+                                            </a>
                                     </b-container>
                                 </b-modal>
                             </div>

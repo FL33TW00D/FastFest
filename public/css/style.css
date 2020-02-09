@@ -234,8 +234,9 @@ g.toggled circle {
     font-size: 1.1rem !important;
   }
   #download-lineup-btn{
-    font-size: 0.6rem !important;
-    bottom: -40px !important;
+    font-size: 0.8rem !important;
+    bottom: -50px !important;
+    max-width: 350px !important;
   }
 }
 
@@ -275,8 +276,9 @@ g.toggled circle {
   }
 
   #download-lineup-btn{
-    font-size: 0.6rem !important;
-    bottom: -40px !important;
+    font-size: 0.8rem !important;
+    bottom: -50px !important;
+    max-width: 350px !important;
   }
 }
 
@@ -300,8 +302,10 @@ g.toggled circle {
   }
 
   #download-lineup-btn{
-    font-size: 1rem !important;
-    bottom: -50px !important;
+    font-size: 1.2rem !important;
+    bottom: -60px !important;
+    max-width: 500px !important;
+    border-radius: 30px !important;
   }
 
 }
@@ -617,13 +621,14 @@ h6.title:after {
 }
 
 #download-lineup-btn{
-  font-size: 0.4rem;
+  font-size: 0.6rem;
   position: absolute; 
-  bottom: -30px;
-  transform: translateX(-50%); 
+  left: 50%;
+  bottom: -40px;
   border-radius: 18px; 
   color:white;
-  max-width: 500px;
+  max-width: 250px;
+  transform:translateX(-50%);
 }
 
 #download-lineup-btn:hover{ 
