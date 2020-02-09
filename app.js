@@ -5,11 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var mustacheExpress = require('mustache-express');
+var passport = require('passport');
+var Strategy = require('passport-twitter').Strategy;
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var spotifyRouter = require('./routes/spotify');
+
 var env = require('./public/env');
 var app = express();
 
@@ -30,7 +33,8 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', spotifyRouter)
+app.use('/api', spotifyRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
