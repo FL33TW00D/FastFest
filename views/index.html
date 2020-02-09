@@ -2942,7 +2942,7 @@
                     <b-dropdown size="lg" menu-class="display-picture-dropdown" variant="link" toggle-class="text-decoration-none" no-caret>
                         <template v-slot:button-content>
                             <transition appear name="shrink">
-                                <img id="display-picture" :src="authenticated && profile.images ? profile.images[0].url : '/profile-placeholder.png'" 
+                                <img id="display-picture" :src="authenticated && profile.images ? profile.images[0].url : '/profile-placeholder.jpg'" 
                                      @mouseover="dp_hover = true" @mouseleave="dp_hover = false" />
                             </transition>
                             <transition appear name="slide-fade-down">
