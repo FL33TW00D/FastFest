@@ -632,6 +632,6 @@ h6.title:after {
 }
 
 #download-lineup-btn:hover{ 
-  background-color:#969696 !important;
+  color: black;
   cursor: pointer;
 }

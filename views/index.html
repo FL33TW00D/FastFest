@@ -40,7 +40,7 @@
 
 <body>
 <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-     style="background-image: url('/veccycamp.jpg'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;" >
+     style="background-image: url('/veccycamp-lowres.jpg'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;" >
     <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
         <div id="brand-wrapper" v-if="authenticated !== null" style="z-index:200;">
             <div id="logo"></div>
@@ -2814,12 +2814,13 @@
                             </div>
                             <!-- MODAL TESTING -->
                             <div id="share">
-                                <b-button id="show-btn" size="sm" variant="dark" @click="$bvModal.show('lineup-modal')">Share</b-button>
+                                <b-button id="show-btn" variant="outline-light" @click="$bvModal.show('lineup-modal')">Share</b-button>
                                 <b-modal id="lineup-modal" size="lg" :modal-class="lineupModal" hide-footer centered hide-header
                                     body-class="d-block share-body p-0 m-0" >
                                     <b-container fluid class="h-100 lineup-content pt-5" style="text-align:center;" ref="capture">
-                                        <img src="/veccycamp-sq.jpg" style="position:absolute; left:0; top: 0; width: 100%; height:100%;" />
+                                        <img src="/veccycamp-ff.jpg" style="position:absolute; left:0; top: 0; width: 100%; height:100%;" />
                                         <div style="position: relative; top: 40%; transform: translateY(-50%);">
+                                            <!-- <h3>{{profile.display_name}}'s top festival is:</h3> -->
                                             <h6 :data-heading="matches[0].name" class="unselectable title share">{{matches[0].name}}</h6>
                                             <row class="row mt-2">
                                                 <div class="col-12 px-3 px-sm-4 mt-2" style="color: #4ad9db;">
@@ -2873,7 +2874,7 @@
                                                                         <div class="col-12 text-center text-md-left">
                                                                             <div>description</div>
                                                                             <div style="font-size: 14px;" :style="{color: pastel_colours[(matches.length + index + 1) % pastel_colours.length]}">
-                                                                                {{ match.skiddle.description | apostrify }}
+                                                                                {{decodeHtml(match.skiddle.description)}}
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-12 mt-3">
@@ -3309,6 +3310,11 @@ let app = new Vue({
             } else {
                 window.open(uri);
             }
+        },
+        decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
         }
     },
     created() {
