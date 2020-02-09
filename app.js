@@ -6,13 +6,13 @@ var logger = require('morgan');
 var cors = require('cors');
 var mustacheExpress = require('mustache-express');
 var passport = require('passport');
-var Strategy = require('passport-twitter').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
+var session = require('express-session');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var spotifyRouter = require('./routes/spotify');
-
 var env = require('./public/env');
 var app = express();
 
@@ -35,6 +35,36 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', spotifyRouter);
 
+app.use(session({secret: 'secret-key',resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new TwitterStrategy({
+  consumerKey: env['TWITTER_CONSUMER_KEY'],
+  consumerSecret: env['TWITTER_CONSUMER_SECRET'],
+  callbackURL: 'http://192.168.0.22:3000/auth/twitter/callback'
+},
+function(token, tokenSecret, profile, cb) {
+  console.log('USER TOKEN:' + token);
+  console.log('TOKEN SECRET: ' + tokenSecret);
+  return done(null, profile);
+}));
+// Save to session
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
+app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/twitter/callback', 
+  passport.authenticate('twitter', { failureRedirect: '/?auth_failed' }), 
+  function (req, res) {
+    res.redirect('/');
+  });
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -49,7 +79,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(500).render('error', {title: '500'});
 });
-
 
 
 console.log('server running at ' + env.HOSTNAME);
