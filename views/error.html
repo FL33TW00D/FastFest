@@ -31,10 +31,9 @@
 </head>
 
 <body>
-    <div id="app" v-cloak class="p-2" :style="{ backgroundPosition: background_position + 'px' }"
-        style="background-image: url('/veccycamp-lowres.jpg'); background-size: auto 100%; color: white;">
+    <div id="app" v-cloak class="p-2" style="background-image: url('/veccycamp-lowres.jpg'), linear-gradient(#020209, #011e41, #006996, #5faaaf, #a5f0de); background-size: auto 100%; color: white;">
         <div id="app-container" class="container-fluid mx-0 mb-0 p-0">
-            <div id="brand-wrapper" v-if="authenticated !== null">
+            <div id="brand-wrapper">
                 <div id="logo"></div>
                 <div id="brand" class="d-none d-md-block"><span>fast</span><span style="color:#1DB954;">fest</span></div>
             </div>
@@ -46,7 +45,8 @@
                         <h1 style="margin-top: -20px;"><span style="font-size: 110px;">404</span>
                         </h1>
                         <h2>Looks like something went wrong!</h2>
-                        <h4 style="color:darkgray">Please click the button below to return to safety.</h4>
+                        <br>
+                        <h3 style="color:white">Please click the button below to return to safety.</h3>
                         <span style="border-radius: 15px !important;">
                             <a :href="host" class="btn btn-lg btn-success" role="button"
                                 style="border-radius: 10px;margin: 10px; font-weight: 400;">
@@ -63,6 +63,9 @@
 <script>
 let app = new Vue({
     el: '#app',
+    data: {
+        host: ''
+    },
     created (){
         this.host = env.HOSTNAME;
     }
