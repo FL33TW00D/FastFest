@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>fastfest</title>
-    <meta name="description" content="Which festival should I go to?">
+    <meta name="description" content="The smart festival discovery app using your music tastes to find you the best festivals across the globe!">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
 
     <link rel="manifest" href="manifest.json">
@@ -48,7 +48,7 @@
                 <div id="login" class="mx-auto">
                     <div>
                         <span style="padding-bottom: 100%; width: 100%; border-radius: 50%; display: inline-block; background-size: cover;"
-                              :style="[{'backgroundImage': 'url(profile-placeholder.png)'}]">
+                              :style="[{'backgroundImage': 'url(profile-placeholder.jpg)'}]">
                         </span>
                     </div>
                     <div style="text-align: center;">
@@ -100,6 +100,10 @@
                                     <span class="underscore" style="position: relative; top: 0px; left:-5px;" :class="{'typing': typeStatus}">&#95;</span>
                                 </h1>
                                 <div>
+                                    <a class="twitter-share-button"
+                                    href="https://twitter.com/intent/tweet?text=Hello%20world"
+                                    data-size="large">
+                                    Tweet</a>
                                     <h2>Click the button in the bottom right to get started!</h2>
                                 </div>
                             </div>
@@ -2836,7 +2840,7 @@
                                         <b-container fluid class="h-100 lineup-content pt-5" style="text-align:center;" ref="capture">
                                             <img src="/veccycamp-ff.jpg" style="position:absolute; left:0; top: 0; width: 100%; height:100%;" />
                                             <div style="position: relative; top: 40%; transform: translateY(-50%);">
-                                                <!-- <h3>{{profile.display_name}}'s top festival is:</h3> -->
+                                                <!-- <h3 :style="{color: pastel_colours[1]}">{{profile.display_name}}'s top festival is:</h3> -->
                                                 <h6 :data-heading="matches[0].name" class="unselectable title share">{{matches[0].name}}</h6>
                                                 <row class="row mt-2">
                                                     <div class="col-12 px-3 px-sm-4 mt-2" style="color: #4ad9db;">
@@ -3309,7 +3313,7 @@ let app = new Vue({
         },
         downloadLineup() {
             window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: true, allowTaint: false, useCORS: true, scale: 1920*2/window.innerWidth, backgroundColor: null }).then(canvas => {
-                this.saveAs(canvas.toDataURL('image/jpg'), 'FastFest.png');
+                this.saveAs(canvas.toDataURL('image/png'), 'FastFest.png');
             }).catch((error) => {
                 console.log("ERROR SAVING FESTIVAL IMAGE", error)
             });
