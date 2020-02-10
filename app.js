@@ -72,13 +72,13 @@ app.get('/twitter/callback',
       oauth_verifier: req.query.oauth_verifier
     }));
 
-    await fetch(`https://api.twitter.com/oauth/access_token?oauth_token=${req.query.oauth_token}&oauth_verifier=${req.query.oauth_verifier}`, {
-      method: 'POST',
+    // await fetch(`https://api.twitter.com/oauth/access_token?oauth_token=${req.query.oauth_token}&oauth_verifier=${req.query.oauth_verifier}`, {
+    //   method: 'POST',
       
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data);
-    });
+    // }).then(response => response.json())
+    //   .then(data => {
+    //     console.log(data);
+    // });
 
     res.redirect(env.HOSTNAME + '/@' + querystring.stringify({
       oauth_token: req.query.oauth_token,
