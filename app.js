@@ -86,6 +86,23 @@ app.get('/twitter/callback',
     }));
   });
 
+  app.post('/twitter/image', (req, res) => {
+    console.log(req.body);
+  
+    // let response = client.post('media/upload', {
+    //   media_data:
+    // })
+    // res.send('end');
+  });
+
+  app.post('/twitter/image', (req, res) => {
+    console.log(res);
+  
+    // let response = client.post('media/upload', {
+    //   media_data:
+    // })
+    // res.send('end');
+  });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

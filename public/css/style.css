@@ -620,6 +620,22 @@ h6.title:after {
   margin: auto;
 }
 
+#download-lineup-container{
+  position: absolute; 
+  left: 50%;
+  bottom: -40px;
+  transform:translateX(-50%);
+  color: white;
+  width:500px;
+}
+
+#download-lineup-container span{
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* 
 #download-lineup-btn{
   font-size: 0.6rem;
   position: absolute; 
@@ -629,7 +645,7 @@ h6.title:after {
   color:white;
   max-width: 250px;
   transform:translateX(-50%);
-}
+} */
 
 #download-lineup-btn:hover{ 
   color: black;

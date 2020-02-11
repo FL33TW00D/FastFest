@@ -2853,9 +2853,14 @@
                                                     </div>
                                                 </row>    
                                             </div>
-                                                <a @click="downloadLineup" id="download-lineup-btn" class="btn btn-block btn-outline-light unselectable" role="button">
-                                                    Download your lineup!
+                                            <div id= "download-lineup-container">
+                                            <span><i class="fab fa-twitter fa-2x"></i></span>
+                                            <span>
+                                                <a @click="downloadLineup" id="download-lineup-btn" class="unselectable" role="button">
+                                                    <i class="fas fa-download fa-2x"></i>
                                                 </a>
+                                            </span>
+                                            </div>
                                         </b-container>
                                     </b-modal>
                                 </div>
@@ -2964,13 +2969,13 @@
             </transition>
             <div v-if="page < total_pages" style="text-align: center; position: absolute; bottom: 0; right: 0;">
                 <span v-if="page === 0" style="border-radius: 20px !important;">
-                    <b-button @click="next_page" class="btn btn-secondary" style="border-radius: 18px; margin: 10px;">
+                    <b-button @click="next_page" class="btn" variant="outline-light"  style="border-radius: 18px; margin: 10px;">
                         Get Started
                         <i class="fas fa-arrow-right"></i>
                     </b-button>
                 </span>
                 <span v-else style="border-radius: 20px !important;">
-                    <b-button @click="next_page" class="btn btn-secondary" style="border-radius:50%; margin: 10px;">
+                    <b-button @click="next_page" class="btn" variant="outline-light"  style="border-radius:50%; margin: 10px;">
                         <!-- Next -->
                         <i class="fas fa-arrow-right"></i>
                     </b-button>
@@ -2978,7 +2983,7 @@
             </div>
             <div v-if="page > 0" style="text-align: center; position: absolute; bottom: 0; left: 0;">
                 <span style="border-radius: 20px !important;">
-                    <b-button @click="prev_page" class="btn btn-secondary" style="border-radius:50%; margin: 10px;">
+                    <b-button @click="prev_page" class="btn" variant="outline-light" style="border-radius:50%; margin: 10px;">
                         <i class="fas fa-arrow-left"></i>
                         <!-- Previous -->
                     </b-button>
@@ -3046,6 +3051,23 @@ let app = new Vue({
         }
     },
     methods: {
+        postImage(image){
+            const formData = new FormData();
+            formData.append('username', 'abc123');
+            formData.append('image', image);
+
+            fetch(this.host + 'twitter/image', {
+            method: 'PUT',
+            body: formData
+            })
+            .then((response) => response.json())
+            .then((result) => {
+            console.log('Success:', result);
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+            });
+        },
         next_page() { 
             this.background_position -= 2691 * window.innerHeight / 1440;
             this.page++; 
@@ -3314,6 +3336,11 @@ let app = new Vue({
         downloadLineup() {
             window.html2canvas(this.$refs['capture'], {logging: true, letterRendering: true, allowTaint: false, useCORS: true, scale: 1920*2/window.innerWidth, backgroundColor: null }).then(canvas => {
                 this.saveAs(canvas.toDataURL('image/png'), 'FastFest.png');
+                this.postImage(canvas.toBlob(function(blob){
+                link.href = URL.createObjectURL(blob);
+                console.log(blob);
+                console.log(link.href); // this line should be here
+            },'image/png'));
             }).catch((error) => {
                 console.log("ERROR SAVING FESTIVAL IMAGE", error)
             });
